@@ -1,0 +1,65 @@
+@font-face { font-family: "Lato"; font-weight: 700; src: url(fonts/lato-700.woff2) format("woff2"); }
+@font-face { font-family: "Lato"; font-weight: 900; src: url(fonts/lato-900.woff2) format("woff2"); }
+
+:root {
+  --bg: #0d0d0d;
+  --btn: #5e8db6;       /* sampled from Mythfall's Reset button */
+  --btn-edge: #39546d;
+  --free: #dca755;      /* "Temporarily Free!" */
+  --select: rgb(180,122,59);    /* selection rim (sampled from Mythfall) */
+  --panel: #151515;
+  --line: #2b2b2b;
+  --cursor: url(assets/cursor.png) 1 1, default;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: #fff; font-family: "Lato", system-ui, sans-serif; overflow: hidden; cursor: var(--cursor); }
+button, input, [data-id] { cursor: var(--cursor); font-family: inherit; }
+#app { position: fixed; inset: 0; border: 3px solid #1d1d1d; overflow: hidden; }
+
+#viewport { position: absolute; inset: 0; overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; }
+#viewport.dragging { cursor: var(--cursor); }
+#world { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+#world .layer { position: absolute; left: 0; width: 100%; overflow: hidden; pointer-events: none; }
+#world .layer img { position: absolute; display: block; max-width: none; -webkit-user-drag: none; }
+#world svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+/* hitboxes: invisible; selection is drawn by the lit sprite + rim in world.js */
+.hit { fill: transparent; stroke: none; pointer-events: all; }
+.rim { fill: none; stroke: rgb(180,122,59); stroke-linejoin: miter; pointer-events: none; opacity: 0; }
+.path { stroke-linecap: butt; pointer-events: none; }
+.sprite { pointer-events: none; }
+.skill:hover { filter: none; }
+
+/* Mythfall-style chrome */
+#title { position: absolute; left: clamp(14px, 1vw, 24px); top: clamp(4px, .3vw, 10px); margin: 0; font-weight: 700; font-size: clamp(30px, 2.9vw, 60px); letter-spacing: .035em; line-height: 1.15; pointer-events: none; text-shadow: 0 2px 0 rgba(0,0,0,.5); }
+#resetwrap { position: absolute; left: 50%; top: 5px; transform: translateX(-50%); text-align: center; }
+.mf-btn { background: var(--btn); color: #fff; border: 0; border-bottom: 5px solid var(--btn-edge); font-weight: 900; font-size: clamp(20px, 1.6vw, 32px); letter-spacing: .02em; padding: 0 clamp(36px, 4.5vw, 90px); height: clamp(32px, 2.4vw, 46px); line-height: 1;
+  -webkit-text-stroke: clamp(3px, .25vw, 5px) #000; paint-order: stroke fill; }
+.mf-btn:hover { filter: brightness(1.12); }
+.mf-btn:active { transform: translateY(2px); border-bottom-width: 3px; }
+.free { margin-top: 6px; color: var(--free); font-weight: 700; font-size: clamp(12px, .85vw, 17px); letter-spacing: .06em; }
+
+#points { position: absolute; left: clamp(16px, 1.4vw, 30px); bottom: clamp(10px, 1.2vw, 24px); display: flex; align-items: center; gap: clamp(14px, 1.7vw, 34px); font-weight: 900; font-size: clamp(22px, 1.65vw, 34px); pointer-events: none; }
+#points img { width: clamp(22px, 1.5vw, 30px); image-rendering: pixelated; }
+
+#buildbar { position: absolute; right: 14px; bottom: 12px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: flex-end; max-width: calc(100% - 140px); padding: 8px; background: rgba(13,13,13,.82); border: 1px solid var(--line); }
+#buildbar input { height: 30px; width: 190px; background: #0a0a0a; border: 1px solid #3a3a3a; color: #fff; padding: 0 10px; font-weight: 700; font-size: 14px; outline: none; }
+#buildbar input:focus { border-color: var(--btn); }
+.mf-btn.sm { font-size: 14px; height: 30px; padding: 0 14px; border-bottom-width: 4px; -webkit-text-stroke: 2.5px #000; }
+.mf-btn.dim { background: #3b3b3b; border-bottom-color: #222; }
+#hint { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); font-size: 12px; font-weight: 700; color: #777; letter-spacing: .05em; pointer-events: none; white-space: nowrap; }
+
+dialog#community { width: min(560px, 92vw); max-height: 80vh; background: var(--panel); color: #fff; border: 2px solid var(--line); padding: 16px; }
+dialog::backdrop { background: rgba(0,0,0,.7); }
+.dlg-head { display: flex; justify-content: space-between; align-items: center; }
+.dlg-head h2 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: .03em; }
+#communityNote { color: var(--free); font-size: 12px; font-weight: 700; margin: 6px 0; }
+#communityList { list-style: none; margin: 8px 0 0; padding: 0; overflow: auto; max-height: 58vh; }
+#communityList li { display: flex; align-items: center; gap: 10px; padding: 8px 4px; border-top: 1px solid var(--line); }
+#communityList .meta { flex: 1; min-width: 0; }
+#communityList .nm { font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#communityList .sub { color: #888; font-size: 12px; font-weight: 700; }
+#toast { position: absolute; left: 50%; top: 18%; transform: translate(-50%, -10px); background: #151515; border: 1px solid var(--btn); padding: 8px 16px; font-weight: 700; font-size: 14px; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 5; display: flex; gap: 12px; align-items: center; }
+#toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+#toast button { background: none; border: 0; color: var(--select); font-weight: 900; text-decoration: underline; font-size: 14px; }
+@media (max-width: 700px) { #hint { display: none; } #buildbar { left: 10px; right: 10px; max-width: none; bottom: 56px; } #points { bottom: 14px; } }

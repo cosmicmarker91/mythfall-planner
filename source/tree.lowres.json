@@ -1,0 +1,1789 @@
+{
+ "version": 1,
+ "note": "Temporary screenshot-based data. x/y are the CENTER of each skill, normalized 0-1 over the world. size = icon width, normalized by world width. Replace with official data later.",
+ "world": {
+  "width": 2030,
+  "height": 2066
+ },
+ "layers": [
+  {
+   "id": "top",
+   "src": "assets/tree-top.png",
+   "rect": {
+    "x": 0,
+    "y": 0,
+    "w": 0.98522,
+    "h": 0.5092
+   },
+   "clip": {
+    "y0": 0,
+    "y1": 0.50726
+   }
+  },
+  {
+   "id": "bottom",
+   "src": "assets/tree-bottom.png",
+   "rect": {
+    "x": 0.03078,
+    "y": 0.45256,
+    "w": 0.96693,
+    "h": 0.54677
+   },
+   "clip": {
+    "y0": 0.50726,
+    "y1": 1
+   }
+  }
+ ],
+ "skills": [
+  {
+   "id": "warrior",
+   "name": "Warrior",
+   "shape": "square",
+   "x": 0.5069,
+   "y": 0.04792,
+   "size": 0.04335,
+   "start": true
+  },
+  {
+   "id": "speed-c8r0",
+   "name": "Speed",
+   "shape": "diamond",
+   "x": 0.56158,
+   "y": 0.04792,
+   "size": 0.02266
+  },
+  {
+   "id": "battle-frenzy",
+   "name": "Battle Frenzy",
+   "shape": "square",
+   "x": 0.61626,
+   "y": 0.04792,
+   "size": 0.0335
+  },
+  {
+   "id": "defense-c7r1",
+   "name": "Defense",
+   "shape": "diamond",
+   "x": 0.5069,
+   "y": 0.10165,
+   "size": 0.02266
+  },
+  {
+   "id": "strength-c9r1",
+   "name": "Strength",
+   "shape": "diamond",
+   "x": 0.61626,
+   "y": 0.10165,
+   "size": 0.02266
+  },
+  {
+   "id": "swift-step",
+   "name": "Swift Step",
+   "shape": "square",
+   "x": 0.12414,
+   "y": 0.15537,
+   "size": 0.0335
+  },
+  {
+   "id": "willpower-c4r2",
+   "name": "Willpower",
+   "shape": "diamond",
+   "x": 0.34286,
+   "y": 0.15537,
+   "size": 0.02266
+  },
+  {
+   "id": "defense-c5r2",
+   "name": "Defense",
+   "shape": "diamond",
+   "x": 0.39754,
+   "y": 0.15537,
+   "size": 0.02266
+  },
+  {
+   "id": "strength-c6r2",
+   "name": "Strength",
+   "shape": "diamond",
+   "x": 0.45222,
+   "y": 0.15537,
+   "size": 0.02266
+  },
+  {
+   "id": "iron-grip",
+   "name": "Iron Grip",
+   "shape": "square",
+   "x": 0.5069,
+   "y": 0.15537,
+   "size": 0.0335
+  },
+  {
+   "id": "vitality-c8r2",
+   "name": "Vitality",
+   "shape": "diamond",
+   "x": 0.56158,
+   "y": 0.15537,
+   "size": 0.02266
+  },
+  {
+   "id": "thorns-c9r2",
+   "name": "Thorns",
+   "shape": "square",
+   "x": 0.61626,
+   "y": 0.15537,
+   "size": 0.0335
+  },
+  {
+   "id": "vitality-c10r2",
+   "name": "Vitality",
+   "shape": "diamond",
+   "x": 0.67094,
+   "y": 0.15537,
+   "size": 0.02266
+  },
+  {
+   "id": "defense-c0r3",
+   "name": "Defense",
+   "shape": "diamond",
+   "x": 0.12414,
+   "y": 0.2091,
+   "size": 0.02266
+  },
+  {
+   "id": "health-regeneration-c4r3",
+   "name": "Health Regeneration",
+   "shape": "square",
+   "x": 0.34286,
+   "y": 0.2091,
+   "size": 0.0335
+  },
+  {
+   "id": "barbarian-defense",
+   "name": "Barbarian Defense",
+   "shape": "square",
+   "x": 0.45222,
+   "y": 0.2091,
+   "size": 0.0335
+  },
+  {
+   "id": "surgical-strikes",
+   "name": "Surgical Strikes",
+   "shape": "square",
+   "x": 0.56158,
+   "y": 0.2091,
+   "size": 0.0335
+  },
+  {
+   "id": "body-slam",
+   "name": "Body Slam",
+   "shape": "square",
+   "x": 0.67094,
+   "y": 0.2091,
+   "size": 0.0335
+  },
+  {
+   "id": "last-stand",
+   "name": "Last Stand",
+   "shape": "square",
+   "x": 0.72562,
+   "y": 0.2091,
+   "size": 0.0335
+  },
+  {
+   "id": "defense-c12r3",
+   "name": "Defense",
+   "shape": "diamond",
+   "x": 0.7803,
+   "y": 0.2091,
+   "size": 0.02266
+  },
+  {
+   "id": "strength-c13r3",
+   "name": "Strength",
+   "shape": "diamond",
+   "x": 0.83498,
+   "y": 0.2091,
+   "size": 0.02266
+  },
+  {
+   "id": "willpower-c14r3",
+   "name": "Willpower",
+   "shape": "diamond",
+   "x": 0.88966,
+   "y": 0.2091,
+   "size": 0.02266
+  },
+  {
+   "id": "soloist",
+   "name": "Soloist",
+   "shape": "square",
+   "x": 0.06946,
+   "y": 0.26283,
+   "size": 0.0335
+  },
+  {
+   "id": "duelist",
+   "name": "Duelist",
+   "shape": "square",
+   "x": 0.12414,
+   "y": 0.26283,
+   "size": 0.04335,
+   "start": true
+  },
+  {
+   "id": "strength-c1r4",
+   "name": "Strength",
+   "shape": "diamond",
+   "x": 0.17882,
+   "y": 0.26283,
+   "size": 0.02266
+  },
+  {
+   "id": "dexterity-c2r4",
+   "name": "Dexterity",
+   "shape": "diamond",
+   "x": 0.2335,
+   "y": 0.26283,
+   "size": 0.02266
+  },
+  {
+   "id": "shadow-strength",
+   "name": "Shadow Strength",
+   "shape": "square",
+   "x": 0.28818,
+   "y": 0.26283,
+   "size": 0.0335
+  },
+  {
+   "id": "vitality-c4r4",
+   "name": "Vitality",
+   "shape": "diamond",
+   "x": 0.34286,
+   "y": 0.26283,
+   "size": 0.02266
+  },
+  {
+   "id": "attack-speed-c5r4",
+   "name": "Attack Speed",
+   "shape": "square",
+   "x": 0.39754,
+   "y": 0.26283,
+   "size": 0.0335
+  },
+  {
+   "id": "strength-c6r4",
+   "name": "Strength",
+   "shape": "diamond",
+   "x": 0.45222,
+   "y": 0.26283,
+   "size": 0.02266
+  },
+  {
+   "id": "strength-c8r4",
+   "name": "Strength",
+   "shape": "diamond",
+   "x": 0.56158,
+   "y": 0.26283,
+   "size": 0.02266
+  },
+  {
+   "id": "defense-c9r4",
+   "name": "Defense",
+   "shape": "diamond",
+   "x": 0.61626,
+   "y": 0.26283,
+   "size": 0.02266
+  },
+  {
+   "id": "willpower-c10r4",
+   "name": "Willpower",
+   "shape": "diamond",
+   "x": 0.67094,
+   "y": 0.26283,
+   "size": 0.02266
+  },
+  {
+   "id": "paladin",
+   "name": "Paladin",
+   "shape": "square",
+   "x": 0.88966,
+   "y": 0.26283,
+   "size": 0.04335,
+   "start": true
+  },
+  {
+   "id": "surrounded",
+   "name": "Surrounded",
+   "shape": "square",
+   "x": 0.94433,
+   "y": 0.26283,
+   "size": 0.0335
+  },
+  {
+   "id": "shadow-dexterity",
+   "name": "Shadow Dexterity",
+   "shape": "square",
+   "x": 0.12414,
+   "y": 0.31655,
+   "size": 0.0335
+  },
+  {
+   "id": "melee-proficiency",
+   "name": "Melee Proficiency",
+   "shape": "square",
+   "x": 0.45222,
+   "y": 0.31655,
+   "size": 0.0335
+  },
+  {
+   "id": "critical-c8r5",
+   "name": "Critical",
+   "shape": "square",
+   "x": 0.56158,
+   "y": 0.31655,
+   "size": 0.0335
+  },
+  {
+   "id": "health-regeneration-c10r5",
+   "name": "Health Regeneration",
+   "shape": "square",
+   "x": 0.67094,
+   "y": 0.31655,
+   "size": 0.0335
+  },
+  {
+   "id": "willpower-c11r5",
+   "name": "Willpower",
+   "shape": "diamond",
+   "x": 0.72562,
+   "y": 0.31655,
+   "size": 0.02266
+  },
+  {
+   "id": "defensive-conversion",
+   "name": "Defensive Conversion",
+   "shape": "square",
+   "x": 0.7803,
+   "y": 0.31655,
+   "size": 0.0335
+  },
+  {
+   "id": "vitality-c13r5",
+   "name": "Vitality",
+   "shape": "diamond",
+   "x": 0.83498,
+   "y": 0.31655,
+   "size": 0.02266
+  },
+  {
+   "id": "rally",
+   "name": "Rally",
+   "shape": "square",
+   "x": 0.88966,
+   "y": 0.31655,
+   "size": 0.0335
+  },
+  {
+   "id": "speed-c0r6",
+   "name": "Speed",
+   "shape": "diamond",
+   "x": 0.12414,
+   "y": 0.37028,
+   "size": 0.02266
+  },
+  {
+   "id": "phantom-arc",
+   "name": "Phantom Arc",
+   "shape": "square",
+   "x": 0.17882,
+   "y": 0.37028,
+   "size": 0.0335
+  },
+  {
+   "id": "dancing-tempo",
+   "name": "Dancing Tempo",
+   "shape": "square",
+   "x": 0.2335,
+   "y": 0.37028,
+   "size": 0.0335
+  },
+  {
+   "id": "speed-c3r6",
+   "name": "Speed",
+   "shape": "diamond",
+   "x": 0.28818,
+   "y": 0.37028,
+   "size": 0.02266
+  },
+  {
+   "id": "perfected-strikes",
+   "name": "Perfected Strikes",
+   "shape": "square",
+   "x": 0.34286,
+   "y": 0.37028,
+   "size": 0.0335
+  },
+  {
+   "id": "dash-cdr-c5r6",
+   "name": "Dash CDR",
+   "shape": "square",
+   "x": 0.39754,
+   "y": 0.37028,
+   "size": 0.0335
+  },
+  {
+   "id": "speed-c6r6",
+   "name": "Speed",
+   "shape": "diamond",
+   "x": 0.45222,
+   "y": 0.37028,
+   "size": 0.02266
+  },
+  {
+   "id": "strength-c7r6",
+   "name": "Strength",
+   "shape": "diamond",
+   "x": 0.5069,
+   "y": 0.37028,
+   "size": 0.02266
+  },
+  {
+   "id": "defense-c8r6",
+   "name": "Defense",
+   "shape": "diamond",
+   "x": 0.56158,
+   "y": 0.37028,
+   "size": 0.02266
+  },
+  {
+   "id": "thorns-c11r6",
+   "name": "Thorns",
+   "shape": "square",
+   "x": 0.72562,
+   "y": 0.37028,
+   "size": 0.0335
+  },
+  {
+   "id": "attack-speed-c1r7",
+   "name": "Attack Speed",
+   "shape": "square",
+   "x": 0.17882,
+   "y": 0.42401,
+   "size": 0.0335
+  },
+  {
+   "id": "critical-c3r7",
+   "name": "Critical",
+   "shape": "square",
+   "x": 0.28818,
+   "y": 0.42401,
+   "size": 0.0335
+  },
+  {
+   "id": "dexterity-c5r7",
+   "name": "Dexterity",
+   "shape": "diamond",
+   "x": 0.39754,
+   "y": 0.42401,
+   "size": 0.02266
+  },
+  {
+   "id": "strength-c7r7",
+   "name": "Strength",
+   "shape": "diamond",
+   "x": 0.5069,
+   "y": 0.42401,
+   "size": 0.02266
+  },
+  {
+   "id": "vitality-c11r7",
+   "name": "Vitality",
+   "shape": "diamond",
+   "x": 0.72562,
+   "y": 0.42401,
+   "size": 0.02266
+  },
+  {
+   "id": "reinforced-string",
+   "name": "Reinforced String",
+   "shape": "square",
+   "x": 0.12414,
+   "y": 0.47773,
+   "size": 0.0335
+  },
+  {
+   "id": "critical-c1r8",
+   "name": "Critical",
+   "shape": "square",
+   "x": 0.17882,
+   "y": 0.47773,
+   "size": 0.0335
+  },
+  {
+   "id": "explosives-expert",
+   "name": "Explosives Expert",
+   "shape": "square",
+   "x": 0.2335,
+   "y": 0.47773,
+   "size": 0.0335
+  },
+  {
+   "id": "explosive-dash",
+   "name": "Explosive Dash",
+   "shape": "square",
+   "x": 0.28818,
+   "y": 0.47773,
+   "size": 0.0335
+  },
+  {
+   "id": "speed-c4r8",
+   "name": "Speed",
+   "shape": "diamond",
+   "x": 0.34286,
+   "y": 0.47773,
+   "size": 0.02266
+  },
+  {
+   "id": "critical-c5r8",
+   "name": "Critical",
+   "shape": "square",
+   "x": 0.39754,
+   "y": 0.47773,
+   "size": 0.0335
+  },
+  {
+   "id": "dexterity-c6r8",
+   "name": "Dexterity",
+   "shape": "diamond",
+   "x": 0.45222,
+   "y": 0.47773,
+   "size": 0.02266
+  },
+  {
+   "id": "nomad",
+   "name": "Nomad",
+   "shape": "square",
+   "x": 0.5069,
+   "y": 0.47773,
+   "size": 0.04335,
+   "start": true
+  },
+  {
+   "id": "willpower-c8r8",
+   "name": "Willpower",
+   "shape": "diamond",
+   "x": 0.56158,
+   "y": 0.47773,
+   "size": 0.02266
+  },
+  {
+   "id": "manasteal-c9r8",
+   "name": "Manasteal",
+   "shape": "square",
+   "x": 0.61626,
+   "y": 0.47773,
+   "size": 0.0335
+  },
+  {
+   "id": "willpower-c10r8",
+   "name": "Willpower",
+   "shape": "diamond",
+   "x": 0.67094,
+   "y": 0.47773,
+   "size": 0.02266
+  },
+  {
+   "id": "mana-regeneration-c11r8",
+   "name": "Mana Regeneration",
+   "shape": "square",
+   "x": 0.72562,
+   "y": 0.47773,
+   "size": 0.0335
+  },
+  {
+   "id": "defense-c12r8",
+   "name": "Defense",
+   "shape": "diamond",
+   "x": 0.7803,
+   "y": 0.47773,
+   "size": 0.02266
+  },
+  {
+   "id": "impact-rounds",
+   "name": "Impact Rounds",
+   "shape": "square",
+   "x": 0.06946,
+   "y": 0.53146,
+   "size": 0.0335
+  },
+  {
+   "id": "sidestep",
+   "name": "Sidestep",
+   "shape": "square",
+   "x": 0.12414,
+   "y": 0.53146,
+   "size": 0.0335
+  },
+  {
+   "id": "strength-c3r9",
+   "name": "Strength",
+   "shape": "diamond",
+   "x": 0.28818,
+   "y": 0.53146,
+   "size": 0.02266
+  },
+  {
+   "id": "dexterity-c5r9",
+   "name": "Dexterity",
+   "shape": "diamond",
+   "x": 0.39754,
+   "y": 0.53146,
+   "size": 0.02266
+  },
+  {
+   "id": "vitality-c7r9",
+   "name": "Vitality",
+   "shape": "diamond",
+   "x": 0.5069,
+   "y": 0.53146,
+   "size": 0.02266
+  },
+  {
+   "id": "lifesteal-c10r9",
+   "name": "Lifesteal",
+   "shape": "square",
+   "x": 0.67094,
+   "y": 0.53146,
+   "size": 0.0335
+  },
+  {
+   "id": "willpower-c12r9",
+   "name": "Willpower",
+   "shape": "diamond",
+   "x": 0.7803,
+   "y": 0.53146,
+   "size": 0.02266
+  },
+  {
+   "id": "magic-armor",
+   "name": "Magic Armor",
+   "shape": "square",
+   "x": 0.83498,
+   "y": 0.53146,
+   "size": 0.0335
+  },
+  {
+   "id": "critical-c0r10",
+   "name": "Critical",
+   "shape": "square",
+   "x": 0.12414,
+   "y": 0.58519,
+   "size": 0.0335
+  },
+  {
+   "id": "attack-speed-c3r10",
+   "name": "Attack Speed",
+   "shape": "square",
+   "x": 0.28818,
+   "y": 0.58519,
+   "size": 0.0335
+  },
+  {
+   "id": "piercing-volley",
+   "name": "Piercing Volley",
+   "shape": "square",
+   "x": 0.39754,
+   "y": 0.58519,
+   "size": 0.0335
+  },
+  {
+   "id": "defense-c6r10",
+   "name": "Defense",
+   "shape": "diamond",
+   "x": 0.45222,
+   "y": 0.58519,
+   "size": 0.02266
+  },
+  {
+   "id": "mana-regeneration-c7r10",
+   "name": "Mana Regeneration",
+   "shape": "square",
+   "x": 0.5069,
+   "y": 0.58519,
+   "size": 0.0335
+  },
+  {
+   "id": "vitality-c10r10",
+   "name": "Vitality",
+   "shape": "diamond",
+   "x": 0.67094,
+   "y": 0.58519,
+   "size": 0.02266
+  },
+  {
+   "id": "mystic-echo",
+   "name": "Mystic Echo",
+   "shape": "square",
+   "x": 0.7803,
+   "y": 0.58519,
+   "size": 0.0335
+  },
+  {
+   "id": "forceful-archery",
+   "name": "Forceful Archery",
+   "shape": "square",
+   "x": 0.12414,
+   "y": 0.63892,
+   "size": 0.0335
+  },
+  {
+   "id": "luck-c3r11",
+   "name": "Luck",
+   "shape": "square",
+   "x": 0.28818,
+   "y": 0.63892,
+   "size": 0.0335
+  },
+  {
+   "id": "dash-cdr-c4r11",
+   "name": "Dash CDR",
+   "shape": "square",
+   "x": 0.34286,
+   "y": 0.63892,
+   "size": 0.0335
+  },
+  {
+   "id": "speed-c5r11",
+   "name": "Speed",
+   "shape": "diamond",
+   "x": 0.39754,
+   "y": 0.63892,
+   "size": 0.02266
+  },
+  {
+   "id": "luck-c7r11",
+   "name": "Luck",
+   "shape": "square",
+   "x": 0.5069,
+   "y": 0.63892,
+   "size": 0.0335
+  },
+  {
+   "id": "magic-adrenaline",
+   "name": "Magic Adrenaline",
+   "shape": "square",
+   "x": 0.67094,
+   "y": 0.63892,
+   "size": 0.0335
+  },
+  {
+   "id": "strength-c11r11",
+   "name": "Strength",
+   "shape": "diamond",
+   "x": 0.72562,
+   "y": 0.63892,
+   "size": 0.02266
+  },
+  {
+   "id": "arcane-ripple",
+   "name": "Arcane Ripple",
+   "shape": "square",
+   "x": 0.7803,
+   "y": 0.63892,
+   "size": 0.0335
+  },
+  {
+   "id": "willpower-c13r11",
+   "name": "Willpower",
+   "shape": "diamond",
+   "x": 0.83498,
+   "y": 0.63892,
+   "size": 0.02266
+  },
+  {
+   "id": "inner-focus",
+   "name": "Inner Focus",
+   "shape": "square",
+   "x": 0.88966,
+   "y": 0.63892,
+   "size": 0.0335
+  },
+  {
+   "id": "ranger",
+   "name": "Ranger",
+   "shape": "square",
+   "x": 0.12414,
+   "y": 0.69264,
+   "size": 0.04335,
+   "start": true
+  },
+  {
+   "id": "dexterity-c1r12",
+   "name": "Dexterity",
+   "shape": "diamond",
+   "x": 0.17882,
+   "y": 0.69264,
+   "size": 0.02266
+  },
+  {
+   "id": "defense-c2r12",
+   "name": "Defense",
+   "shape": "diamond",
+   "x": 0.2335,
+   "y": 0.69264,
+   "size": 0.02266
+  },
+  {
+   "id": "longstride",
+   "name": "Longstride",
+   "shape": "square",
+   "x": 0.28818,
+   "y": 0.69264,
+   "size": 0.0335
+  },
+  {
+   "id": "pinpoint-accuracy",
+   "name": "Pinpoint Accuracy",
+   "shape": "square",
+   "x": 0.39754,
+   "y": 0.69264,
+   "size": 0.0335
+  },
+  {
+   "id": "attack-speed-c7r12",
+   "name": "Attack Speed",
+   "shape": "square",
+   "x": 0.5069,
+   "y": 0.69264,
+   "size": 0.0335
+  },
+  {
+   "id": "speed-c8r12",
+   "name": "Speed",
+   "shape": "diamond",
+   "x": 0.56158,
+   "y": 0.69264,
+   "size": 0.02266
+  },
+  {
+   "id": "defense-c9r12",
+   "name": "Defense",
+   "shape": "diamond",
+   "x": 0.61626,
+   "y": 0.69264,
+   "size": 0.02266
+  },
+  {
+   "id": "vampiric-tendencies",
+   "name": "Vampiric Tendencies",
+   "shape": "square",
+   "x": 0.67094,
+   "y": 0.69264,
+   "size": 0.0335
+  },
+  {
+   "id": "wizard",
+   "name": "Wizard",
+   "shape": "square",
+   "x": 0.88966,
+   "y": 0.69264,
+   "size": 0.04335,
+   "start": true
+  },
+  {
+   "id": "sniper-s-focus",
+   "name": "Sniper's Focus",
+   "shape": "square",
+   "x": 0.17882,
+   "y": 0.74637,
+   "size": 0.0335
+  },
+  {
+   "id": "speed-c3r13",
+   "name": "Speed",
+   "shape": "diamond",
+   "x": 0.28818,
+   "y": 0.74637,
+   "size": 0.02266
+  },
+  {
+   "id": "dodge-c4r13",
+   "name": "Dodge",
+   "shape": "square",
+   "x": 0.34286,
+   "y": 0.74637,
+   "size": 0.0335
+  },
+  {
+   "id": "dexterity-c5r13",
+   "name": "Dexterity",
+   "shape": "diamond",
+   "x": 0.39754,
+   "y": 0.74637,
+   "size": 0.02266
+  },
+  {
+   "id": "manasteal-c6r13",
+   "name": "Manasteal",
+   "shape": "square",
+   "x": 0.45222,
+   "y": 0.74637,
+   "size": 0.0335
+  },
+  {
+   "id": "dodge-c7r13",
+   "name": "Dodge",
+   "shape": "square",
+   "x": 0.5069,
+   "y": 0.74637,
+   "size": 0.0335
+  },
+  {
+   "id": "eldritch-malice",
+   "name": "Eldritch Malice",
+   "shape": "square",
+   "x": 0.67094,
+   "y": 0.74637,
+   "size": 0.0335
+  },
+  {
+   "id": "magic-proficiency",
+   "name": "Magic Proficiency",
+   "shape": "square",
+   "x": 0.72562,
+   "y": 0.74637,
+   "size": 0.0335
+  },
+  {
+   "id": "speed-c12r13",
+   "name": "Speed",
+   "shape": "diamond",
+   "x": 0.7803,
+   "y": 0.74637,
+   "size": 0.02266
+  },
+  {
+   "id": "arcane-will",
+   "name": "Arcane Will",
+   "shape": "square",
+   "x": 0.83498,
+   "y": 0.74637,
+   "size": 0.0335
+  },
+  {
+   "id": "willpower-c14r13",
+   "name": "Willpower",
+   "shape": "diamond",
+   "x": 0.88966,
+   "y": 0.74637,
+   "size": 0.02266
+  },
+  {
+   "id": "speed-c1r14",
+   "name": "Speed",
+   "shape": "diamond",
+   "x": 0.17882,
+   "y": 0.8001,
+   "size": 0.02266
+  },
+  {
+   "id": "quick-draw",
+   "name": "Quick Draw",
+   "shape": "square",
+   "x": 0.28818,
+   "y": 0.8001,
+   "size": 0.0335
+  },
+  {
+   "id": "stealth-c7r14",
+   "name": "Stealth",
+   "shape": "square",
+   "x": 0.5069,
+   "y": 0.8001,
+   "size": 0.0335
+  },
+  {
+   "id": "afterimage",
+   "name": "Afterimage",
+   "shape": "square",
+   "x": 0.56158,
+   "y": 0.8001,
+   "size": 0.0335
+  },
+  {
+   "id": "lifesteal-c9r14",
+   "name": "Lifesteal",
+   "shape": "square",
+   "x": 0.61626,
+   "y": 0.8001,
+   "size": 0.0335
+  },
+  {
+   "id": "vitality-c10r14",
+   "name": "Vitality",
+   "shape": "diamond",
+   "x": 0.67094,
+   "y": 0.8001,
+   "size": 0.02266
+  },
+  {
+   "id": "dexterity-c1r15",
+   "name": "Dexterity",
+   "shape": "diamond",
+   "x": 0.17882,
+   "y": 0.85382,
+   "size": 0.02266
+  },
+  {
+   "id": "dexterity-c3r15",
+   "name": "Dexterity",
+   "shape": "diamond",
+   "x": 0.28818,
+   "y": 0.85382,
+   "size": 0.02266
+  },
+  {
+   "id": "dexterity-c7r15",
+   "name": "Dexterity",
+   "shape": "diamond",
+   "x": 0.5069,
+   "y": 0.85382,
+   "size": 0.02266
+  },
+  {
+   "id": "stealth-c9r15",
+   "name": "Stealth",
+   "shape": "square",
+   "x": 0.61626,
+   "y": 0.85382,
+   "size": 0.0335
+  },
+  {
+   "id": "ranged-proficiency",
+   "name": "Ranged Proficiency",
+   "shape": "square",
+   "x": 0.17882,
+   "y": 0.90755,
+   "size": 0.0335
+  },
+  {
+   "id": "vitality-c2r16",
+   "name": "Vitality",
+   "shape": "diamond",
+   "x": 0.2335,
+   "y": 0.90755,
+   "size": 0.02266
+  },
+  {
+   "id": "dexterous-footwork",
+   "name": "Dexterous Footwork",
+   "shape": "square",
+   "x": 0.28818,
+   "y": 0.90755,
+   "size": 0.0335
+  },
+  {
+   "id": "dexterity-c4r16",
+   "name": "Dexterity",
+   "shape": "diamond",
+   "x": 0.34286,
+   "y": 0.90755,
+   "size": 0.02266
+  },
+  {
+   "id": "phantom-step",
+   "name": "Phantom Step",
+   "shape": "square",
+   "x": 0.39754,
+   "y": 0.90755,
+   "size": 0.0335
+  },
+  {
+   "id": "defense-c6r16",
+   "name": "Defense",
+   "shape": "diamond",
+   "x": 0.45222,
+   "y": 0.90755,
+   "size": 0.02266
+  },
+  {
+   "id": "trickster",
+   "name": "Trickster",
+   "shape": "square",
+   "x": 0.5069,
+   "y": 0.90755,
+   "size": 0.04335,
+   "start": true
+  },
+  {
+   "id": "willpower-c8r16",
+   "name": "Willpower",
+   "shape": "diamond",
+   "x": 0.56158,
+   "y": 0.90755,
+   "size": 0.02266
+  },
+  {
+   "id": "vitality-c9r16",
+   "name": "Vitality",
+   "shape": "diamond",
+   "x": 0.61626,
+   "y": 0.90755,
+   "size": 0.02266
+  },
+  {
+   "id": "wraith-form",
+   "name": "Wraith Form",
+   "shape": "square",
+   "x": 0.67094,
+   "y": 0.90755,
+   "size": 0.0335
+  },
+  {
+   "id": "arcane-friction",
+   "name": "Arcane Friction",
+   "shape": "square",
+   "x": 0.56158,
+   "y": 0.96128,
+   "size": 0.0335
+  }
+ ],
+ "edges": [
+  [
+   "warrior",
+   "speed-c8r0"
+  ],
+  [
+   "warrior",
+   "defense-c7r1"
+  ],
+  [
+   "speed-c8r0",
+   "battle-frenzy"
+  ],
+  [
+   "battle-frenzy",
+   "strength-c9r1"
+  ],
+  [
+   "defense-c7r1",
+   "iron-grip"
+  ],
+  [
+   "strength-c9r1",
+   "thorns-c9r2"
+  ],
+  [
+   "swift-step",
+   "defense-c0r3"
+  ],
+  [
+   "willpower-c4r2",
+   "defense-c5r2"
+  ],
+  [
+   "willpower-c4r2",
+   "health-regeneration-c4r3"
+  ],
+  [
+   "defense-c5r2",
+   "strength-c6r2"
+  ],
+  [
+   "strength-c6r2",
+   "iron-grip"
+  ],
+  [
+   "strength-c6r2",
+   "barbarian-defense"
+  ],
+  [
+   "iron-grip",
+   "vitality-c8r2"
+  ],
+  [
+   "vitality-c8r2",
+   "thorns-c9r2"
+  ],
+  [
+   "vitality-c8r2",
+   "surgical-strikes"
+  ],
+  [
+   "thorns-c9r2",
+   "vitality-c10r2"
+  ],
+  [
+   "vitality-c10r2",
+   "body-slam"
+  ],
+  [
+   "defense-c0r3",
+   "duelist"
+  ],
+  [
+   "health-regeneration-c4r3",
+   "vitality-c4r4"
+  ],
+  [
+   "barbarian-defense",
+   "strength-c6r4"
+  ],
+  [
+   "surgical-strikes",
+   "strength-c8r4"
+  ],
+  [
+   "body-slam",
+   "last-stand"
+  ],
+  [
+   "body-slam",
+   "willpower-c10r4"
+  ],
+  [
+   "last-stand",
+   "defense-c12r3"
+  ],
+  [
+   "defense-c12r3",
+   "strength-c13r3"
+  ],
+  [
+   "strength-c13r3",
+   "willpower-c14r3"
+  ],
+  [
+   "willpower-c14r3",
+   "paladin"
+  ],
+  [
+   "soloist",
+   "duelist"
+  ],
+  [
+   "duelist",
+   "strength-c1r4"
+  ],
+  [
+   "duelist",
+   "shadow-dexterity"
+  ],
+  [
+   "strength-c1r4",
+   "dexterity-c2r4"
+  ],
+  [
+   "dexterity-c2r4",
+   "shadow-strength"
+  ],
+  [
+   "shadow-strength",
+   "vitality-c4r4"
+  ],
+  [
+   "vitality-c4r4",
+   "attack-speed-c5r4"
+  ],
+  [
+   "attack-speed-c5r4",
+   "strength-c6r4"
+  ],
+  [
+   "strength-c6r4",
+   "melee-proficiency"
+  ],
+  [
+   "strength-c8r4",
+   "defense-c9r4"
+  ],
+  [
+   "strength-c8r4",
+   "critical-c8r5"
+  ],
+  [
+   "defense-c9r4",
+   "willpower-c10r4"
+  ],
+  [
+   "willpower-c10r4",
+   "health-regeneration-c10r5"
+  ],
+  [
+   "paladin",
+   "surrounded"
+  ],
+  [
+   "paladin",
+   "rally"
+  ],
+  [
+   "shadow-dexterity",
+   "speed-c0r6"
+  ],
+  [
+   "melee-proficiency",
+   "speed-c6r6"
+  ],
+  [
+   "critical-c8r5",
+   "defense-c8r6"
+  ],
+  [
+   "health-regeneration-c10r5",
+   "willpower-c11r5"
+  ],
+  [
+   "willpower-c11r5",
+   "defensive-conversion"
+  ],
+  [
+   "willpower-c11r5",
+   "thorns-c11r6"
+  ],
+  [
+   "defensive-conversion",
+   "vitality-c13r5"
+  ],
+  [
+   "vitality-c13r5",
+   "rally"
+  ],
+  [
+   "speed-c0r6",
+   "phantom-arc"
+  ],
+  [
+   "phantom-arc",
+   "dancing-tempo"
+  ],
+  [
+   "phantom-arc",
+   "attack-speed-c1r7"
+  ],
+  [
+   "dancing-tempo",
+   "speed-c3r6"
+  ],
+  [
+   "speed-c3r6",
+   "perfected-strikes"
+  ],
+  [
+   "speed-c3r6",
+   "critical-c3r7"
+  ],
+  [
+   "perfected-strikes",
+   "dash-cdr-c5r6"
+  ],
+  [
+   "dash-cdr-c5r6",
+   "speed-c6r6"
+  ],
+  [
+   "dash-cdr-c5r6",
+   "dexterity-c5r7"
+  ],
+  [
+   "speed-c6r6",
+   "strength-c7r6"
+  ],
+  [
+   "strength-c7r6",
+   "defense-c8r6"
+  ],
+  [
+   "strength-c7r6",
+   "strength-c7r7"
+  ],
+  [
+   "thorns-c11r6",
+   "vitality-c11r7"
+  ],
+  [
+   "attack-speed-c1r7",
+   "critical-c1r8"
+  ],
+  [
+   "critical-c3r7",
+   "explosive-dash"
+  ],
+  [
+   "dexterity-c5r7",
+   "critical-c5r8"
+  ],
+  [
+   "strength-c7r7",
+   "nomad"
+  ],
+  [
+   "vitality-c11r7",
+   "mana-regeneration-c11r8"
+  ],
+  [
+   "reinforced-string",
+   "critical-c1r8"
+  ],
+  [
+   "reinforced-string",
+   "sidestep"
+  ],
+  [
+   "critical-c1r8",
+   "explosives-expert"
+  ],
+  [
+   "explosives-expert",
+   "explosive-dash"
+  ],
+  [
+   "explosive-dash",
+   "speed-c4r8"
+  ],
+  [
+   "explosive-dash",
+   "strength-c3r9"
+  ],
+  [
+   "speed-c4r8",
+   "critical-c5r8"
+  ],
+  [
+   "critical-c5r8",
+   "dexterity-c6r8"
+  ],
+  [
+   "critical-c5r8",
+   "dexterity-c5r9"
+  ],
+  [
+   "dexterity-c6r8",
+   "nomad"
+  ],
+  [
+   "nomad",
+   "willpower-c8r8"
+  ],
+  [
+   "nomad",
+   "vitality-c7r9"
+  ],
+  [
+   "willpower-c8r8",
+   "manasteal-c9r8"
+  ],
+  [
+   "manasteal-c9r8",
+   "willpower-c10r8"
+  ],
+  [
+   "willpower-c10r8",
+   "mana-regeneration-c11r8"
+  ],
+  [
+   "willpower-c10r8",
+   "lifesteal-c10r9"
+  ],
+  [
+   "mana-regeneration-c11r8",
+   "defense-c12r8"
+  ],
+  [
+   "defense-c12r8",
+   "willpower-c12r9"
+  ],
+  [
+   "impact-rounds",
+   "sidestep"
+  ],
+  [
+   "sidestep",
+   "critical-c0r10"
+  ],
+  [
+   "strength-c3r9",
+   "attack-speed-c3r10"
+  ],
+  [
+   "dexterity-c5r9",
+   "piercing-volley"
+  ],
+  [
+   "vitality-c7r9",
+   "mana-regeneration-c7r10"
+  ],
+  [
+   "lifesteal-c10r9",
+   "vitality-c10r10"
+  ],
+  [
+   "willpower-c12r9",
+   "magic-armor"
+  ],
+  [
+   "willpower-c12r9",
+   "mystic-echo"
+  ],
+  [
+   "critical-c0r10",
+   "forceful-archery"
+  ],
+  [
+   "attack-speed-c3r10",
+   "luck-c3r11"
+  ],
+  [
+   "piercing-volley",
+   "defense-c6r10"
+  ],
+  [
+   "piercing-volley",
+   "speed-c5r11"
+  ],
+  [
+   "defense-c6r10",
+   "mana-regeneration-c7r10"
+  ],
+  [
+   "mana-regeneration-c7r10",
+   "luck-c7r11"
+  ],
+  [
+   "vitality-c10r10",
+   "magic-adrenaline"
+  ],
+  [
+   "mystic-echo",
+   "arcane-ripple"
+  ],
+  [
+   "forceful-archery",
+   "ranger"
+  ],
+  [
+   "luck-c3r11",
+   "dash-cdr-c4r11"
+  ],
+  [
+   "luck-c3r11",
+   "longstride"
+  ],
+  [
+   "dash-cdr-c4r11",
+   "speed-c5r11"
+  ],
+  [
+   "speed-c5r11",
+   "pinpoint-accuracy"
+  ],
+  [
+   "luck-c7r11",
+   "attack-speed-c7r12"
+  ],
+  [
+   "magic-adrenaline",
+   "strength-c11r11"
+  ],
+  [
+   "magic-adrenaline",
+   "vampiric-tendencies"
+  ],
+  [
+   "strength-c11r11",
+   "arcane-ripple"
+  ],
+  [
+   "arcane-ripple",
+   "willpower-c13r11"
+  ],
+  [
+   "willpower-c13r11",
+   "inner-focus"
+  ],
+  [
+   "inner-focus",
+   "wizard"
+  ],
+  [
+   "ranger",
+   "dexterity-c1r12"
+  ],
+  [
+   "dexterity-c1r12",
+   "defense-c2r12"
+  ],
+  [
+   "dexterity-c1r12",
+   "sniper-s-focus"
+  ],
+  [
+   "defense-c2r12",
+   "longstride"
+  ],
+  [
+   "longstride",
+   "speed-c3r13"
+  ],
+  [
+   "pinpoint-accuracy",
+   "dexterity-c5r13"
+  ],
+  [
+   "attack-speed-c7r12",
+   "speed-c8r12"
+  ],
+  [
+   "attack-speed-c7r12",
+   "dodge-c7r13"
+  ],
+  [
+   "speed-c8r12",
+   "defense-c9r12"
+  ],
+  [
+   "defense-c9r12",
+   "vampiric-tendencies"
+  ],
+  [
+   "vampiric-tendencies",
+   "eldritch-malice"
+  ],
+  [
+   "wizard",
+   "willpower-c14r13"
+  ],
+  [
+   "sniper-s-focus",
+   "speed-c1r14"
+  ],
+  [
+   "speed-c3r13",
+   "dodge-c4r13"
+  ],
+  [
+   "speed-c3r13",
+   "quick-draw"
+  ],
+  [
+   "dodge-c4r13",
+   "dexterity-c5r13"
+  ],
+  [
+   "dexterity-c5r13",
+   "manasteal-c6r13"
+  ],
+  [
+   "manasteal-c6r13",
+   "dodge-c7r13"
+  ],
+  [
+   "dodge-c7r13",
+   "stealth-c7r14"
+  ],
+  [
+   "eldritch-malice",
+   "magic-proficiency"
+  ],
+  [
+   "eldritch-malice",
+   "vitality-c10r14"
+  ],
+  [
+   "magic-proficiency",
+   "speed-c12r13"
+  ],
+  [
+   "speed-c12r13",
+   "arcane-will"
+  ],
+  [
+   "arcane-will",
+   "willpower-c14r13"
+  ],
+  [
+   "speed-c1r14",
+   "dexterity-c1r15"
+  ],
+  [
+   "quick-draw",
+   "dexterity-c3r15"
+  ],
+  [
+   "stealth-c7r14",
+   "afterimage"
+  ],
+  [
+   "stealth-c7r14",
+   "dexterity-c7r15"
+  ],
+  [
+   "afterimage",
+   "lifesteal-c9r14"
+  ],
+  [
+   "lifesteal-c9r14",
+   "vitality-c10r14"
+  ],
+  [
+   "lifesteal-c9r14",
+   "stealth-c9r15"
+  ],
+  [
+   "dexterity-c1r15",
+   "ranged-proficiency"
+  ],
+  [
+   "dexterity-c3r15",
+   "dexterous-footwork"
+  ],
+  [
+   "dexterity-c7r15",
+   "trickster"
+  ],
+  [
+   "stealth-c9r15",
+   "vitality-c9r16"
+  ],
+  [
+   "ranged-proficiency",
+   "vitality-c2r16"
+  ],
+  [
+   "vitality-c2r16",
+   "dexterous-footwork"
+  ],
+  [
+   "dexterous-footwork",
+   "dexterity-c4r16"
+  ],
+  [
+   "dexterity-c4r16",
+   "phantom-step"
+  ],
+  [
+   "phantom-step",
+   "defense-c6r16"
+  ],
+  [
+   "defense-c6r16",
+   "trickster"
+  ],
+  [
+   "trickster",
+   "willpower-c8r16"
+  ],
+  [
+   "willpower-c8r16",
+   "vitality-c9r16"
+  ],
+  [
+   "willpower-c8r16",
+   "arcane-friction"
+  ],
+  [
+   "vitality-c9r16",
+   "wraith-form"
+  ]
+ ]
+}

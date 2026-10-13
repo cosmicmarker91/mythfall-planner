@@ -1,0 +1,141 @@
+# col row name   (col/row = grid cell in shared world grid; see tools/build-data.py)
+# --- top screenshot ---
+7 0 Warrior
+8 0 Speed
+9 0 Battle Frenzy
+7 1 Defense
+9 1 Strength
+0 2 Swift Step
+4 2 Willpower
+5 2 Defense
+6 2 Strength
+7 2 Iron Grip
+8 2 Vitality
+9 2 Thorns
+10 2 Vitality
+0 3 Defense
+4 3 Health Regeneration
+6 3 Barbarian Defense
+8 3 Surgical Strikes
+10 3 Body Slam
+11 3 Last Stand
+12 3 Defense
+13 3 Strength
+14 3 Willpower
+-1 4 Soloist
+0 4 Duelist
+1 4 Strength
+2 4 Dexterity
+3 4 Shadow Strength
+4 4 Vitality
+5 4 Attack Speed
+6 4 Strength
+8 4 Strength
+9 4 Defense
+10 4 Willpower
+14 4 Paladin
+15 4 Surrounded
+0 5 Shadow Dexterity
+6 5 Melee Proficiency
+8 5 Critical
+10 5 Health Regeneration
+11 5 Willpower
+12 5 Defensive Conversion
+13 5 Vitality
+14 5 Rally
+0 6 Speed
+1 6 Phantom Arc
+2 6 Dancing Tempo
+3 6 Speed
+4 6 Perfected Strikes
+5 6 Dash CDR
+6 6 Speed
+7 6 Strength
+8 6 Defense
+11 6 Thorns
+1 7 Attack Speed
+3 7 Critical
+5 7 Dexterity
+7 7 Strength
+11 7 Vitality
+0 8 Reinforced String
+1 8 Critical
+2 8 Explosives Expert
+3 8 Explosive Dash
+4 8 Speed
+5 8 Critical
+6 8 Dexterity
+7 8 Nomad
+8 8 Willpower
+9 8 Manasteal
+10 8 Willpower
+11 8 Mana Regeneration
+12 8 Defense
+# --- bottom screenshot (below the Nomad row) ---
+-1 9 Impact Rounds
+0 9 Sidestep
+3 9 Strength
+5 9 Dexterity
+7 9 Vitality
+10 9 Lifesteal
+12 9 Willpower
+13 9 Magic Armor
+0 10 Critical
+3 10 Attack Speed
+5 10 Piercing Volley
+6 10 Defense
+7 10 Mana Regeneration
+10 10 Vitality
+12 10 Mystic Echo
+0 11 Forceful Archery
+3 11 Luck
+4 11 Dash CDR
+5 11 Speed
+7 11 Luck
+10 11 Magic Adrenaline
+11 11 Strength
+12 11 Arcane Ripple
+13 11 Willpower
+14 11 Inner Focus
+0 12 Ranger
+1 12 Dexterity
+2 12 Defense
+3 12 Longstride
+5 12 Pinpoint Accuracy
+7 12 Attack Speed
+8 12 Speed
+9 12 Defense
+10 12 Vampiric Tendencies
+14 12 Wizard
+1 13 Sniper's Focus
+3 13 Speed
+4 13 Dodge
+5 13 Dexterity
+6 13 Manasteal
+7 13 Dodge
+10 13 Eldritch Malice
+11 13 Magic Proficiency
+12 13 Speed
+13 13 Arcane Will
+14 13 Willpower
+1 14 Speed
+3 14 Quick Draw
+7 14 Stealth
+8 14 Afterimage
+9 14 Lifesteal
+10 14 Vitality
+1 15 Dexterity
+3 15 Dexterity
+7 15 Dexterity
+9 15 Stealth
+1 16 Ranged Proficiency
+2 16 Vitality
+3 16 Dexterous Footwork
+4 16 Dexterity
+5 16 Phantom Step
+6 16 Defense
+7 16 Trickster
+8 16 Willpower
+9 16 Vitality
+10 16 Wraith Form
+8 17 Arcane Friction

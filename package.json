@@ -1,0 +1,8 @@
+{
+  "name": "mythfall-planner",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Mythfall skill-tree planner (screenshot-overlay prototype). No dependencies, no build step.",
+  "scripts": { "start": "node server.mjs" }
+}

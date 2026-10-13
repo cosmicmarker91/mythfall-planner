@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Mythfall Skill Tree Planner</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div id="viewport"><div id="world"></div></div>
+
+  <h1 id="title">Skill Tree</h1>
+  <div id="resetwrap">
+    <button id="reset" class="mf-btn">Reset</button>
+    <div class="free">Temporarily Free!</div>
+  </div>
+
+  <div id="points" title="Skills selected"><img src="assets/skill-point.png" alt=""><span id="count">0</span></div>
+
+  <div id="buildbar">
+    <input id="buildName" maxlength="40" placeholder="Name your build" aria-label="Build name">
+    <button id="share" class="mf-btn sm">Copy Link</button>
+    <button id="publish" class="mf-btn sm">Publish</button>
+    <button id="communityBtn" class="mf-btn sm">Community</button>
+    <button id="fit" class="mf-btn sm dim" title="Re-center the view">Fit</button>
+  </div>
+  <div id="hint">Scroll to zoom · Drag to pan · Click a skill to select</div>
+
+  <dialog id="community">
+    <div class="dlg-head"><h2>Community Builds</h2><button id="closeCommunity" class="mf-btn sm dim">Close</button></div>
+    <div id="communityNote"></div>
+    <ul id="communityList"></ul>
+  </dialog>
+  <div id="toast"></div>
+</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
