@@ -146,7 +146,7 @@ for f in sorted(cls_dir.glob("*.png")):
     region[frame_mask] = np.clip(dim, 0, 255).astype(np.uint8)[frame_mask]       # dim version baked into the background
     sprite = np.dstack([np.clip(lit, 0, 255).astype(np.uint8), (frame_mask * 255).astype(np.uint8)])
     cv2.imwrite(str(sprite_dir/f"{sid}.png"), sprite)
-    class_sprites[sid] = {"src": f"assets/classes/{sid}.png", "half": round(HALF / R, 3)}
+    class_sprites[sid] = {"src": f"assets/classes/{sid}.png?v={int(__import__('time').time())}", "half": round(HALF / R, 3)}
     print("class icon:", sid, "icon", (w, h), "px")
 
 # ---- fade the outer edge into the page background (baked into alpha) ----

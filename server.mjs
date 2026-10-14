@@ -14,7 +14,7 @@ const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; ch
   ".json": "application/json", ".png": "image/png", ".woff2": "font/woff2", ".svg": "image/svg+xml" };
 
 const readBuilds = async () => { try { return JSON.parse(await fs.readFile(store, "utf8")); } catch { return []; } };
-const send = (res, code, body, type = "application/json") => { res.writeHead(code, { "Content-Type": type }); res.end(typeof body === "string" || Buffer.isBuffer(body) ? body : JSON.stringify(body)); };
+const send = (res, code, body, type = "application/json") => { res.writeHead(code, { "Content-Type": type, "Cache-Control": "no-store" }); res.end(typeof body === "string" || Buffer.isBuffer(body) ? body : JSON.stringify(body)); };
 
 async function readBody(req, limit = 100_000) {
   let size = 0; const chunks = [];
