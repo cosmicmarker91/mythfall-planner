@@ -102,6 +102,53 @@ canvas[~cover] = base[~cover]
 print("hq coverage: %.1f%% of canvas" % (100 * cover.mean()))
 cv2.imwrite(str(ROOT/"source/stitched-preview.jpg"), cv2.resize(canvas, None, fx=.3, fy=.3, interpolation=cv2.INTER_AREA))
 
+# ---- class icons: replace the "locked" padlock nodes with the real class icons ----
+# source/class-icons/<skill id>.png are crops of the in-game (unlocked, unselected) nodes. The padlock frame is replaced by
+# an ordinary dim frame + the icon; a lit version (frame + brightened icon) is exported for when the class is selected.
+GAIN = 4.35
+sk = {k["id"]: k for k in json.loads((ROOT/"public/data/tree.json").read_text())["skills"]}
+def node_px(sid): return round(sk[sid]["x"]*W*R), round(sk[sid]["y"]*H*R)
+HALF = 107                                   # crop radius around a start node (canvas px)
+wx, wy = node_px("wizard")                   # Wizard = a lit, unlocked frame with a plain panel
+tpl = canvas[wy-HALF:wy+HALF, wx-HALF:wx+HALF].astype(np.float32)
+panel = np.array([117, 112, 93], np.float32)  # BGR of the lit panel colour
+rim_col = tpl[107, 18].copy()
+ring = np.zeros((2*HALF, 2*HALF), bool); ring[14:201, 14:201] = True; ring[27:188, 27:188] = False
+ring &= np.abs(tpl - rim_col).max(axis=2) > 6; tpl[ring] = rim_col                      # staff tip overlapping the rim
+_in = tpl[27:188, 27:188]; _m = np.abs(_in - panel).max(axis=2) > 6
+STAFF_PEAK = float(np.percentile(_in.max(axis=2)[_m], 95))                          # brightness of an in-game lit start icon
+inner = tpl[27:188, 27:188]; inner[np.abs(inner - panel).max(axis=2) > 6] = panel   # erase the staff -> empty frame
+FR = slice(14, 201)                          # frame extent inside the 214px crop
+frame_mask = np.zeros((2*HALF, 2*HALF), bool); frame_mask[FR, FR] = True
+cls_dir = ROOT/"source/class-icons"; sprite_dir = ROOT/"public/assets/classes"; sprite_dir.mkdir(parents=True, exist_ok=True)
+class_sprites = {}
+for f in sorted(cls_dir.glob("*.png")):
+    sid = f.stem
+    if sid not in sk: continue
+    crop = cv2.imread(str(f), cv2.IMREAD_COLOR).astype(np.float32); lum = crop.max(axis=2)
+    rows = np.where((lum > 200).sum(axis=1) > 3)[0]                        # label text rows (bright white)
+    label_top = rows[rows > crop.shape[0] * .55].min() if (rows > crop.shape[0] * .55).any() else crop.shape[0]
+    icon, ilum = crop[:max(label_top - 4, 1)], lum[:max(label_top - 4, 1)]
+    bg = np.median(ilum[:6]) if ilum.size else 3
+    spread = icon.max(axis=2) - icon.min(axis=2)
+    alpha = np.clip((ilum - 7) / 9, 0, 1) * (spread <= 14)      # class icons are neutral grey; drop teal line fragments in the crop
+    ys, xs = np.where(alpha > .5); y0, y1, x0, x1 = ys.min(), ys.max()+1, xs.min(), xs.max()+1
+    icon, alpha = icon[y0:y1], alpha[y0:y1]; icon, alpha = icon[:, x0:x1], alpha[:, x0:x1]
+    h, w = alpha.shape; cx, cy = node_px(sid); ox, oy = HALF - w//2, HALF - h//2 - 4
+    pk = float(np.percentile(icon.max(axis=2)[alpha > .5], 99)); lit_gain = 240 / max(pk, 1)   # match lit start nodes
+    print("  lit gain", round(lit_gain, 2), "(icon p99 ->240)")
+    def compose(base, gain):
+        out = base.copy(); sl = (slice(oy, oy+h), slice(ox, ox+w))
+        out[sl] = out[sl] * (1 - alpha[..., None]) + np.clip(icon * gain, 0, 255) * alpha[..., None]
+        return out
+    dim = compose(tpl / GAIN, 1.0); lit = compose(tpl, lit_gain)
+    region = canvas[cy-HALF:cy+HALF, cx-HALF:cx+HALF]
+    region[frame_mask] = np.clip(dim, 0, 255).astype(np.uint8)[frame_mask]       # dim version baked into the background
+    sprite = np.dstack([np.clip(lit, 0, 255).astype(np.uint8), (frame_mask * 255).astype(np.uint8)])
+    cv2.imwrite(str(sprite_dir/f"{sid}.png"), sprite)
+    class_sprites[sid] = {"src": f"assets/classes/{sid}.png", "half": round(HALF / R, 3)}
+    print("class icon:", sid, "icon", (w, h), "px")
+
 # ---- fade the outer edge into the page background (baked into alpha) ----
 lowmask = np.zeros((CH, CW), np.uint8)
 for L in tree["layers"][:2]:
@@ -128,5 +175,7 @@ for ty in range(NY):
         layers.append({"id": f"t{ty}{tx}", "src": "assets/"+name, "rect": r, "clip": {"y0": r["y"], "y1": round(r["y"]+r["h"], 6)}})
 t = json.loads((ROOT/"public/data/tree.json").read_text())
 t["layers"] = layers
+for k in t["skills"]:
+    if k["id"] in class_sprites: k["litSprite"] = class_sprites[k["id"]]
 (ROOT/"public/data/tree.json").write_text(json.dumps(t, indent=1))
 print("wrote", len(layers), "tiles;", sum(f.stat().st_size for f in out.glob("*.webp"))//1024, "KB total; canvas", CW, "x", CH)

@@ -141,7 +141,11 @@
    "x": 0.5069,
    "y": 0.04792,
    "size": 0.04335,
-   "start": true
+   "start": true,
+   "litSprite": {
+    "src": "assets/classes/warrior.png",
+    "half": 48.067
+   }
   },
   {
    "id": "speed-c8r0",
@@ -326,7 +330,11 @@
    "x": 0.12414,
    "y": 0.26283,
    "size": 0.04335,
-   "start": true
+   "start": true,
+   "litSprite": {
+    "src": "assets/classes/duelist.png",
+    "half": 48.067
+   }
   },
   {
    "id": "strength-c1r4",
@@ -407,7 +415,11 @@
    "x": 0.88966,
    "y": 0.26283,
    "size": 0.04335,
-   "start": true
+   "start": true,
+   "litSprite": {
+    "src": "assets/classes/paladin.png",
+    "half": 48.067
+   }
   },
   {
    "id": "surrounded",
@@ -1211,7 +1223,11 @@
    "x": 0.5069,
    "y": 0.90755,
    "size": 0.04335,
-   "start": true
+   "start": true,
+   "litSprite": {
+    "src": "assets/classes/trickster.png",
+    "half": 48.067
+   }
   },
   {
    "id": "willpower-c8r16",

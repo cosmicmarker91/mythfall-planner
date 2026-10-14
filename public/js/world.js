@@ -101,6 +101,11 @@ export function buildWorld(root, tree) {
   // ---- lit icons: re-light the node straight from the screenshot pixels ----
   function makeSprite(n) {
     const { s, half } = n, cx = s.x * W, cy = s.y * H, side = (half + 1) * 2;
+    if (s.litSprite) { // pre-rendered lit version (class nodes whose "locked" art was replaced with the class icon)
+      const h = s.litSprite.half;
+      for (const [k, v] of Object.entries({ href: s.litSprite.src, x: cx - h, y: cy - h, width: h * 2, height: h * 2 })) n.sprite.setAttribute(k, v);
+      return true;
+    }
     const [cv, ctx] = canvas(side, side);
     const c = cv.width / 2, hz = (half - 0.5) * Z;
     ctx.beginPath();
@@ -140,8 +145,8 @@ export function buildWorld(root, tree) {
       const isSel = selected.has(id), isAvail = avail.has(id);
       n.g.classList.toggle("selected", isSel);
       n.rim.style.opacity = isSel ? 1 : 0;
-      // start nodes are already drawn lit in the screenshots, so they need no sprite
-      const lit = ready && (isSel || isAvail) && !n.s.start;
+      // start nodes (Nomad, Ranger, Wizard) are already drawn lit in the screenshots, so they need no sprite
+      const lit = ready && (isSel || isAvail) && (!n.s.start || n.s.litSprite);
       if (lit && !n.spriteReady) n.spriteReady = makeSprite(n);
       n.sprite.style.display = lit && n.spriteReady ? "" : "none";
     }
