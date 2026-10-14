@@ -137,13 +137,14 @@ for f in sorted(cls_dir.glob("*.png")):
     h, w = alpha.shape; cx, cy = node_px(sid); ox, oy = HALF - w//2, HALF - h//2 - 4
     pk = float(np.percentile(icon.max(axis=2)[alpha > .5], 99)); lit_gain = 240 / max(pk, 1)   # match lit start nodes
     print("  lit gain", round(lit_gain, 2), "(icon p99 ->240)")
-    def compose(base, gain):
+    def compose(base, gain, lit=False):
         out = base.copy(); sl = (slice(oy, oy+h), slice(ox, ox+w))
-        out[sl] = out[sl] * (1 - alpha[..., None]) + np.clip(icon * gain, 0, 255) * alpha[..., None]
+        pic = np.clip(255 * np.clip(icon / pk, 0, 1) ** .6 * 1.0, 0, 255) if lit else np.clip(icon * gain, 0, 255)   # lit: lift mid-tones like the in-game lit icons
+        out[sl] = out[sl] * (1 - alpha[..., None]) + pic * alpha[..., None]
         return out
-    dim = compose(tpl / GAIN, 1.0); lit = compose(tpl, lit_gain)
+    dim = compose(tpl / GAIN, 1.0); lit = compose(tpl, lit_gain, True)
     region = canvas[cy-HALF:cy+HALF, cx-HALF:cx+HALF]
-    region[frame_mask] = np.clip(dim, 0, 255).astype(np.uint8)[frame_mask]       # dim version baked into the background
+    region[frame_mask] = np.clip(lit, 0, 255).astype(np.uint8)[frame_mask]       # start nodes are always lit in the background, like Nomad/Ranger/Wizard
     sprite = np.dstack([np.clip(lit, 0, 255).astype(np.uint8), (frame_mask * 255).astype(np.uint8)])
     cv2.imwrite(str(sprite_dir/f"{sid}.png"), sprite)
     class_sprites[sid] = {"src": f"assets/classes/{sid}.png?v={int(__import__('time').time())}", "half": round(HALF / R, 3)}

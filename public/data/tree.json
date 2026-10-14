@@ -143,7 +143,7 @@
    "size": 0.04335,
    "start": true,
    "litSprite": {
-    "src": "assets/classes/warrior.png?v=1791979898",
+    "src": "assets/classes/warrior.png?v=1791981493",
     "half": 48.067
    }
   },
@@ -332,7 +332,7 @@
    "size": 0.04335,
    "start": true,
    "litSprite": {
-    "src": "assets/classes/duelist.png?v=1791979898",
+    "src": "assets/classes/duelist.png?v=1791981493",
     "half": 48.067
    }
   },
@@ -417,7 +417,7 @@
    "size": 0.04335,
    "start": true,
    "litSprite": {
-    "src": "assets/classes/paladin.png?v=1791979898",
+    "src": "assets/classes/paladin.png?v=1791981493",
     "half": 48.067
    }
   },
@@ -1225,7 +1225,7 @@
    "size": 0.04335,
    "start": true,
    "litSprite": {
-    "src": "assets/classes/trickster.png?v=1791979898",
+    "src": "assets/classes/trickster.png?v=1791981493",
     "half": 48.067
    }
   },
