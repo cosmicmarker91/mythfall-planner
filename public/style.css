@@ -52,6 +52,10 @@ button, input, .skill { cursor: var(--cursor); font-family: inherit; }
 .skill.travel.path .band { fill: var(--link); }
 .skill.travel.hover .band { fill: #fff; }
 
+.skill .tick { display: none; pointer-events: none; }
+.skill.can .tick { display: inline; }
+.skill.pinned .bd, .skill.pinned .bd.key, .skill.pinned .bd.start { fill: #fff; }
+.skill.travel.pinned .band { fill: #fff; }
 .lbl { fill: #fff; font-size: 5.5px; font-weight: 700; text-anchor: middle; paint-order: stroke; stroke: #000; stroke-width: 2px; stroke-linejoin: round; opacity: 0; pointer-events: none; letter-spacing: .02em; }
 .zoomed .lbl { opacity: 1; }
 .hoverlbl { fill: #fff; font-weight: 900; text-anchor: middle; paint-order: stroke; stroke: #000; stroke-width: 3px; stroke-linejoin: round; pointer-events: none; letter-spacing: .03em; }

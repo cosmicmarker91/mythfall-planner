@@ -12,8 +12,13 @@ Any static server pointed at `public/` also works.
 - Build output directory: **`public`**
 - Root directory: `/` (repo root)
 
-On a static host the community list falls back to the visitor's own browser storage
-(`server.mjs` and `/api/builds` only exist locally). Shared build links (`#s=...`) work everywhere.
+Shared build links (`#s=...`) work everywhere with no setup.
+
+### Shared community list (free, optional)
+`functions/api/builds.js` is a Cloudflare Pages Function that stores published builds in Workers KV (free tier, no card).
+1. Cloudflare dashboard → Storage & Databases → KV → **Create** a namespace (e.g. `mythfall-builds`).
+2. Your Pages project → Settings → Bindings → **Add → KV namespace** → variable name `BUILDS`, pick that namespace (do it for Production).
+3. Redeploy. Without this binding the site still works; Publish just saves to the visitor's own browser.
 
 ## Where the data comes from (patch v0.21.0)
 - **Names, effects, icons:** https://mythfall.wiki.gg/wiki/Skill_Tree (all 133 node types, 16x16 icons in `public/assets/icons/`). Transcribed in `tools/catalog.py`.

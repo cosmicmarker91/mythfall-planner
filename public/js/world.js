@@ -28,7 +28,10 @@ const diamond = (h) => `0,${-h} ${h},0 0,${h} ${-h},0`;
 
 // Per-kind geometry (world px; the screenshots are ~1:1 with these at pitch 50).
 function build(n, g) {
-  const icon = (s) => el("image", { href: n.icon, x: -s / 2, y: -s / 2, width: s, height: s, class: "ico" }, g);
+  const icon = (s) => { // the sprite, plus the white tick shown on the node you have selected (click it again to buy)
+    el("image", { href: n.icon, x: -s / 2, y: -s / 2, width: s, height: s, class: "ico" }, g);
+    el("image", { href: "assets/tick.png", x: -s / 2, y: -s / 2, width: s, height: s, class: "tick" }, g);
+  };
   let half, rim, hit;
   if (n.kind === "notable") {
     half = 20;
@@ -114,8 +117,8 @@ export function buildWorld(root, tree, { onHover } = {}) {
 
   let last = { hover: null, cost: 0 };
   return {
-    // state: { owned:Set, avail:Set, plan:{cost,path}|null, hover:id|null }
-    render({ owned, avail, plan, hover }) {
+    // state: { owned:Set, avail:Set, plan:{cost,path}|null, hover:id|null, pinned:id|null }
+    render({ owned, avail, plan, hover, pinned }) {
       const onPath = new Set(plan ? plan.path : []), pathEdges = new Set();
       if (plan) for (let i = 1; i < plan.path.length; i++) pathEdges.add(Graph.key(plan.path[i - 1], plan.path[i]));
       for (const [id, r] of byId) {
@@ -124,6 +127,8 @@ export function buildWorld(root, tree, { onHover } = {}) {
         c.toggle("lit", owned.has(id) || avail.has(id) || onPath.has(id) || r.n.kind === "start");
         c.toggle("path", onPath.has(id));
         c.toggle("hover", hover === id);
+        c.toggle("pinned", pinned === id);
+        c.toggle("can", pinned === id && !!plan && !owned.has(id));
       }
       for (const e of edges) {
         const ao = owned.has(e.a), bo = owned.has(e.b);

@@ -15,10 +15,10 @@ function toast(msg, action) {
 const tree = await loadTree();
 const graph = new Graph(tree);
 const sel = new Selection(new Set(tree.nodes.map((n) => n.id)));   // sel.set = the nodes you have purchased
-let pinned = "nomad", hover = null;
+let pinned = null, hover = null;   // pinned = the node you clicked (shows a tick; click it again to buy)
 
 const TYPE = { start: "Starting Node", keystone: "Keystone", notable: "Notable", travel: "Travel Node" };
-const target = () => hover || pinned;
+const target = () => hover || pinned || "nomad";
 
 const world = buildWorld($("world"), tree, { onHover: (id) => { hover = id; render(); } });
 
@@ -37,7 +37,7 @@ function renderPanel(id, plan) {
 
 function render() {
   const id = target(), plan = sel.set.has(id) ? null : graph.plan(id, sel.set);
-  world.render({ owned: sel.set, avail: graph.available(sel.set), plan, hover });
+  world.render({ owned: sel.set, avail: graph.available(sel.set), plan, hover, pinned });
   renderPanel(id, plan);
   $("count").textContent = sel.set.size;
   const nameEl = $("buildName"); if (document.activeElement !== nameEl) nameEl.value = sel.name;
@@ -56,16 +56,21 @@ function refund(id) {
   sel.replace([...kept]);
   if (lost) toast(`Also refunded ${lost} node${lost > 1 ? "s" : ""} that were cut off`);
 }
-const act = (id) => (sel.set.has(id) ? refund(id) : purchase(id));
+const act = (id) => (sel.set.has(id) ? refund(id) : purchase(id, true));
 $("pBtn").onclick = () => act(target());
 $("pPath").onclick = () => purchase(target(), true);
 
 const view = new Viewport($("viewport"), $("world"), {
   worldW: tree.world.width, worldH: tree.world.height,
-  onTap: (el) => { const g = el && el.closest && el.closest("[data-id]"); if (g) { pinned = g.dataset.id; render(); } },
+  onTap: (el) => {
+    const g = el && el.closest && el.closest("[data-id]"), id = g && g.dataset.id;
+    if (id && id === pinned) { act(id); return; }   // second click: buy (or refund if you own it)
+    pinned = id || null; render();
+  },
   onView: (s, fit) => world.setScale(s, fit),
 });
-$("viewport").addEventListener("dblclick", (e) => { const g = e.target.closest && e.target.closest("[data-id]"); if (g) { pinned = g.dataset.id; if (!sel.set.has(pinned)) purchase(pinned, true); } });
+// double-click also buys (the second click of a double-click already does; this covers a first click that only pinned)
+$("viewport").addEventListener("dblclick", (e) => { const g = e.target.closest && e.target.closest("[data-id]"); if (g) { pinned = g.dataset.id; if (!sel.set.has(pinned)) purchase(pinned, true); else render(); } });
 
 // restore shared build from the URL
 const loadFromUrl = () => {

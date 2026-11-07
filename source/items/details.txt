@@ -1,0 +1,182 @@
+50|Someone just found this on the ground|Damage: 3; Scaling: +1% Str per point; Rate: 3.3; Range: 100
+51|Looks like a toy sword|Damage: 3; Scaling: +1% Str per point; Rate: 2; Projectiles: 2; Range: 130
+52|A sword crafted from iron|Damage: 5; Scaling: +1% Str per point; Rate: 2; Projectiles: 2; Range: 130
+66|A plain bow carved from driftwood|Damage: 4; Scaling: +1% Dex per point; Rate: 2.5; Range: 210
+75|Highly inaccurate|Damage: 3; Scaling: +1% Dex per point; Rate: 1; Projectiles: 4; Range: 180; Pierce: Gain
+77|Looks like you just chuck it|Damage: 8; Scaling: +0.5% Str, +0.5% Dex per point; Rate: 3.3; Range: 130; Critical Chance: +1
+64|Weighs at least 4 cocofruits|Damage: 13; Scaling: +1% Str per point; Rate: 1; Projectiles: 2; Range: 130; Speed: -5
+74|A simple crossbow|Damage: 11; Scaling: +1% Dex per point; Rate: 1; Range: 210; Fractured: 5s (25% Chance)
+102|The wand of demonic powers|Rate: 2.5; Range: 160; Guided: Monster; [On Impact: Explosion]; Damage: 54; Scaling: +1% Wil per point; Radius: 20
+372|It looks like a modified cannon from a pirate ship.|Rate: 2.5; Range: 120; [On Impact]; Damage: 3; Scaling: +1% Dex per point; Projectiles: 4; Range: 55
+113|Now this one blends in|Dexterity: +2; Vitality: +1; Defense: +2
+130|A gold band with a small red rock|Lifesteal Chance: +5
+156|Necromancy flows through these pages|Mana: 25; Cooldown: 5.0 s; Damage: 20; Radius: 40
+466|A curious little creature that seems to just follow you around|
+335|A simple backpack to hold things|Backpack: 8
+163|Two carefully whittled coconut husks|Speed: +1
+53|A sword crafted from chlorolite|Damage: 9; Scaling: +1% Str per point; Rate: 2; Projectiles: 2; Range: 130
+54|A sword crafted from gold|Damage: 12; Scaling: +1% Str per point; Rate: 2; Projectiles: 2; Range: 130
+55|A sword crafted from cobalt|Damage: 20; Scaling: +1% Str per point; Rate: 2; Projectiles: 2; Range: 130
+56|A sword crafted from obsidian|Damage: 31; Scaling: +1% Str per point; Rate: 2; Projectiles: 2; Range: 130
+57|A long, slimy sword|Damage: 6; Scaling: +1% Str per point; Rate: 2; Projectiles: 2; Range: 130; Defense: +5
+58|Forged from the remains of a bug|Damage: 15; Scaling: +1% Str per point; Rate: 2; Projectiles: 2; Range: 130; Critical Chance: +5
+59|An otherworldy sword|Damage: 30; Scaling: +1% Str per point; Rate: 2; Projectiles: 2; Range: 130; Bonus Attack Speed: +5
+60|The Trinity Blade|Damage: 32; Scaling: +1% Str per point; Rate: 2; Projectiles: 2; Range: 130; Defense: +5; Critical Chance: +5; Bonus Attack Speed: +5
+61|A pirate's sword|Damage: 4; Scaling: +1% Str per point; Rate: 2; Projectiles: 2; Range: 130; Speed: +3
+62|An ancient elven weapon|Damage: 16; Scaling: +1% Str per point; Rate: 2.5; Range: 130
+63|A sickle on a stick is deadlier than a scythe|Damage: 14; Scaling: +1% Str per point; Rate: 2; Projectiles: 2; Range: 130; Bleed: 5s (10% Chance)
+65|Weighs at least 5 cocofruits|Damage: 23; Scaling: +1% Str per point; Rate: 1; Projectiles: 2; Range: 130; Speed: -10
+67|A bow crafted from Iron|Damage: 4; Scaling: +1% Dex per point; Rate: 2.5; Projectiles: 2; Range: 210
+68|A bow crafted from Chlorolite|Damage: 4; Scaling: +1% Dex per point; Rate: 2.5; Projectiles: 3; Range: 210
+69|A bow crafted from Gold|Damage: 6; Scaling: +1% Dex per point; Rate: 2.5; Projectiles: 3; Range: 210
+70|A bow crafted from Cobalt|Damage: 10; Scaling: +1% Dex per point; Rate: 2.5; Projectiles: 3; Range: 210
+71|A bow crafted from Obsidian|Damage: 15; Scaling: +1% Dex per point; Rate: 2.5; Projectiles: 3; Range: 210
+72|An elven weapon befitting a king|Damage: 20; Scaling: +1% Dex per point; Rate: 2; Range: 210
+73|A demonic bow|Damage: 20; Scaling: +1% Dex per point; Rate: 2.5; Projectiles: 3; Range: 210; Lifesteal Chance: +4
+76|A crossbow forged from insect chitin|Damage: 46; Scaling: +1% Dex per point; Rate: 1; Range: 210; Fractured: 5s (25% Chance); Defense: +4
+78|I guess I just throw it?|Damage: 12; Scaling: +0.5% Str, +0.5% Dex per point; Rate: 3.3; Range: 130; Critical Chance: +2
+79|I guess I just throw it?|Damage: 16; Scaling: +0.5% Str, +0.5% Dex per point; Rate: 3.3; Range: 130; Critical Chance: +3
+80|I guess I just throw it?|Damage: 27; Scaling: +0.5% Str, +0.5% Dex per point; Rate: 3.3; Range: 130; Critical Chance: +4
+81|I guess I just throw it?|Damage: 41; Scaling: +0.5% Str, +0.5% Dex per point; Rate: 3.3; Range: 130; Critical Chance: +5
+82|I guess I just throw it?|Damage: 52; Scaling: +0.5% Str, +0.5% Dex per point; Rate: 3.3; Range: 130; Lifesteal Chance: +3; Critical Chance: +5
+26|Time for bed!|Pierce: Gain; Speed: -10
+28|Some sort of skull with a leather strap|Critical Chance: +20; Defense: +7
+29|For your cat cosplay needs|
+30|Hide your identity|[With Throwable]; Critical Chance: +20; Speed: +7; Defense: +3
+31|A nut for your head|Vitality: +1
+32|A leaf based crown|[With Bow]; Bonus Projectile Chance: +30
+33|A golden crown with a crack in it|Damage Received: 2x; Projectiles: +1
+34|A court jester's hat|Speed: +10; Dexterity: +10; Critical Chance: +10; Defense: +10
+35|The hood of an executioner|Vitality: +8; Defense: +3; Critical Chance: +5
+36|I'm the captain now|Strength: +2
+37|Aaargh matey!|Critical Chance: +7
+38|A helmet made from Driftwood|Defense: +1
+39|A helmet made from Iron|Vitality: +1; Defense: +1
+40|A helmet made from Chlorolite|Vitality: +2; Defense: +2
+41|A helmet made from Gold|Vitality: +3; Defense: +3
+42|A helmet made from Cobalt|Vitality: +6; Defense: +5
+43|A helmet made from Obsidian|Vitality: +9; Defense: +6
+44|You look Pharaohcious...|Lifesteal Chance: +5; Defense: +5; Manasteal Chance: +3
+45|A simple hood for a monk|Dexterity: +7; Defense: +8; [With - Monk Boots]; Strength: +3
+46|Hop! Hop!|
+47|Why do you have an egg on your head?|
+48|Rad|Dexterity: +2; Critical Chance: +5
+175|Protective gear for an artificer|Dashes: +1
+180|The loyal one is rewarded!|Critical Chance: +25; Defense: +16; Dashes: -2
+184|A helmet made from Rockshard|Defense: +5; Speed: -4
+196|A crown befitting a Scorpion Queen|[With Staff]; Critical Chance: +10; Defense: +5
+241|A bright light attached to a solid helmet|[With Hammer]; Critical Chance: +25; Defense: +11
+297|A helmet imbued with graviton|Defense: +6; Dash CDR: +10
+299|A helmet made from Elderwood|Health Regeneration: +1
+304|A helmet made from Chitin|Vitality: +6; Defense: +3
+307|A helmet made from Mythril|Vitality: +10; Defense: +8
+319|Woven from midnight foliage that blends seamlessly into the dark.|Dexterity: +10; Defense: +12; Critical Chance: +5
+320|Woven from radiant foliage that thrives in direct sunlight.|Willpower: +10; Defense: +12; Critical Chance: +5
+332|Spooky|
+333|Spooky|
+334|Spooky|
+358|This appears to be the discarded home of some creature|Willpower: +1; Vitality: +1
+361|A magical hair-devouring fungus that grants you toxic powers|Poison Chance: +3; Willpower: +3
+364|A ghostly ranger's scowl|Dexterity: +4; Defense: +3; Pierce: Gain
+365|Did you take this from a dead body? Thats disgusting...|Vitality: +4; Willpower: +4; Defense: +3
+367|You cant see much with it on, but you feel magically empowered.|Defense: +9; Willpower: +6
+368|A sinister mask that hums with the energy of a succubus's devoted servant.|[With Staff]; Bonus Projectile Chance: +25; Vitality: +4
+381|Its surprisingly warm|
+504|Why would anyone put a dead jellyfish on their head?|Vitality: +1; Swim Speed: +15
+533|A helmet fitted with a curved minotaur horn|Strength: +5; Vitality: +3; Defense: +1
+535|A circlet of entwined antlers and vines|[With Bow]; Bonus Projectile Chance: +45; Dexterity: +4
+546|Keeps the sun out of your eyes|
+557|Rudolph the red-nosed reindeer!|
+558|The bloodsoaked hat of an evil gift giver|
+566|A headband with the windwalker sigil attached to the forehead|Critical Chance: +5; Dodge: +10; Defense: +4; [Windwalker Step]; Gain: Upon succesfully dodging, gain haste for 5 seconds
+568|Delicate, yet razor sharp|Strength: +9; Dexterity: +9; Defense: +6; [Dancing Tempo]; Gain: Upon dashing, gain Rapid Fire status effect for 2 seconds
+580|You can hear the mask calling to you in your head, but it's just a whisper.|Vitality: +9; Defense: +5; [Demonic Dance]; Gain: Upon dashing, gain Vicious status effect for 2 seconds
+113|Now this one blends in|Dexterity: +2; Vitality: +1; Defense: +2
+114|I hear they wear this at Elven parties|Willpower: +4; Vitality: +2; Defense: +4
+116|A robe of destructive power|Willpower: +6; Wraith Form: +5; Vitality: +3; Defense: +6
+117|A sturdy nut split in two|Vitality: +1
+118|Plate armor made from Driftwood|Defense: +1
+119|Plate armor made from Iron|Vitality: +1; Defense: +2
+120|Plate armor made from Chlorolite|Vitality: +2; Defense: +5
+121|Plate armor made from Gold|Vitality: +3; Defense: +9
+122|Plate armor made from Cobalt|Vitality: +4; Defense: +12
+123|Plate armor made from Obsidian|Vitality: +5; Defense: +16
+124|A durable, bug exoskeleton|Strength: +2; Vitality: +6; Defense: +7
+125|A decorative chestpiece, worn by Anubis|Vitality: +3; [With Ranged Weapons]; Bonus Projectile Chance: +35
+126|A simple robe for a monk|Vitality: +4; Defense: +13; [With - Monk Hood]; Strength: +4
+127|A lascivious breastpiece|Strength: +7; Dexterity: +7; Vitality: +5; Defense: +15; Critical Chance: +4
+173|Plate armor imbued with graviton|Vitality: +3; Defense: +7; Dodge: +5
+183|A stone cold exterior|Vitality: +2; Defense: +6; Speed: -6
+197|A looped chainmail forged from hardened scorpion fragments...|Dexterity: +8; Vitality: +3; Defense: +7
+245|It's a bit short...|Strength: +4; Vitality: +5; Defense: +15
+301|Plate armor made from Elderwood|Health Regeneration: +1; Vitality: +1
+302|A white chainmail imbued with lunar essence|Dexterity: +7; Speed: +4; Vitality: +2; Defense: +2
+306|Plate armor made from Mythril|Vitality: +5; Defense: +19
+317|A lightweight cloak woven from midnight foliage that blends into the dark.|Dexterity: +10; Vitality: +5; Defense: +13; Dash CDR: +10
+318|A radiant cloak that thrives in direct sunlight.|Willpower: +10; Vitality: +5; Defense: +14; Speed: +6
+532|Armor reinforced with thick slabs of horn|Strength: +4; Vitality: +5; Defense: +2
+534|Hide reinforced with horn plating, both rugged and graceful|Dexterity: +4; Vitality: +2; Defense: +4
+563|Armor with a thick fur pelt attached|Vitality: +9; Defense: +8; [With Health below 50%]; Speed: +8; Bleed Chance: +2
+565|Frost-essence infused armor|Vitality: +4; Defense: +12; Speed: -2; [Chilling Aura]; Gain: slows enemies that damage you
+569|Armor infused with frost essence|Vitality: +4; Defense: +7; Speed: +4; Bonus Attack Speed: +3; [Frostweave Nova]; Gain: Upon taking damage (with Health below 50%), cause an explosion that clears nearby bullets slows monsters
+579|Smells like sulfur and old blood|Thorns: +7; Vitality: +13; Defense: +12; Speed: -4
+164|Boots made from Iron|Vitality: +2; Speed: +3
+165|Boots made from Chlorolite|Vitality: +2; Defense: +1; Speed: +6
+166|Boots made from Gold|Vitality: +3; Defense: +2; Speed: +9
+167|Boots made from Cobalt|Vitality: +5; Defense: +3; Speed: +12
+168|Boots made from Obsidian|Vitality: +6; Defense: +4; Speed: +15
+169|Simple boots for a monk|Speed: +17; Vitality: +6; Defense: +2; [With - Monk Hood]; Strength: +3
+170|These boots are made for dancing|Speed: +5; Dodge: +2
+176|These boots are made for dashing|Defense: +4; Dash Distance: +50; Speed: +9
+185|Boots made from Rockshard|Defense: +4; Speed: +1
+242|Heavy duty boots|Strength: +6; Vitality: +7; Defense: +4; Speed: +12
+257|Completely Hydrophobic|Vitality: +2; Speed: +3; Swim Speed: +50
+294|Boots fashioned from a special elven leaf|Speed: +6; [With Bow]; Speed: +5; Dexterity: +8
+300|Boots made from Elderwood|Health Regeneration: +1; Speed: +3
+303|Boots made from Chitin|Vitality: +4; Defense: +2; Speed: +9
+308|Boots made from Mythril|Vitality: +6; Defense: +5; Speed: +16
+321|Boots with a shrouded glow|Dexterity: +3; Defense: +7; Dashes: +1; Speed: +15
+322|Boots with a sunshine glow|Willpower: +6; Defense: +6; Speed: +22
+357|Ghostly boots with a thin layer of ectoplasmic goo around them.|Swim Speed: +10; Vitality: +1
+465|Magical boots with magical powers|Willpower: +10; Defense: +7; Speed: +15
+506|Somewhat Hydrophobic|Swim Speed: +50; Speed: +3
+512|Old metal shackles used to keep prisoners|Strength: +3; Vitality: +2; Defense: +1; Speed: +6
+571|Lightweight shoes built for the perfect lunge|Speed: +15; Strength: +8; Dashes: +1; Defense: +3
+128|A ring with a basic enchantment|Defense: +1
+129|A ring with a basic enchantment|Vitality: +2
+132|A gold band with a small blue rock|Critical Chance: +2
+135|A ring with a lesser enchantment|Defense: +2
+136|A basic band|[With - Monk Hood - Monk Robe - Monk Boots]; Defense: +2; Strength: +5; Energy: +2
+137|You can still hear the screams|Critical Chance: +21; Lifesteal Chance: +4
+186|A ring with a lesser enchantment|Vitality: +3
+187|A ring with a standard enchantment|Vitality: +5
+188|A ring with a standard enchantment|Defense: +3
+189|A gold band with a blue rock|Critical Chance: +13
+190|A gold band with a strange blue rock|Critical Chance: +17; Bleed Chance: +2
+191|A gold band with a red rock|Lifesteal Chance: +10; Lifesteal Power: +1
+192|A gold band with a strange red rock attached|Lifesteal Chance: +8; Lifesteal Power: +2
+198|A simple, golden wedding ring|Vitality: +1
+244|A simple dwarven ring|Strength: +9; Vitality: +2; Defense: +2
+261|A ring with a greater enchantment|Vitality: +6
+262|A ring with a superior enchantment|Vitality: +8
+264|A ring with a greater enchantment|Defense: +4
+265|A ring with a superior enchantment|Defense: +5
+267|A ring with a basic enchantment|Dexterity: +4
+268|A ring with a lesser enchantment|Dexterity: +8
+269|A ring with a standard enchantment|Dexterity: +12
+270|A ring with a greater enchantment|Dexterity: +16
+271|A ring with a superior enchantment|Dexterity: +20
+273|A ring with a basic enchantment|Energy: +2
+274|A ring with a lesser enchantment|Energy: +3
+275|A ring with a standard enchantment|Energy: +5
+276|A ring with a greater enchantment|Energy: +6
+277|A ring with a superior enchantment|Energy: +8
+279|A ring with a basic enchantment|Strength: +4
+280|A ring with a lesser enchantment|Strength: +8
+281|A ring with a standard enchantment|Strength: +12
+282|A ring with a greater enchantment|Strength: +16
+283|A ring with a superior enchantment|Strength: +20
+285|A simple ring holding a basic enchantment|Willpower: +4
+286|A ring with a lesser enchantment|Willpower: +8
+287|A ring with a standard enchantment|Willpower: +12
+288|A ring with a greater enchantment|Willpower: +16
