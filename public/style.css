@@ -28,7 +28,7 @@ button, input, .skill { cursor: var(--cursor); font-family: inherit; }
 .edge.avail { stroke: #5d7176; }
 .edge.owned { stroke: #c8cfcc; }
 .edge.path { stroke: var(--link); stroke-width: 4; }
-.edge.cut { stroke-dasharray: 5 5; }
+.edge.cut { display: none; }   /* an owned keystone severs its other connections completely */
 
 /* ---- nodes: dim by default, bright when lit (owned / next to owned / on the hovered path) ---- */
 .skill .hit { fill: transparent; stroke: none; pointer-events: all; }

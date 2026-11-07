@@ -25,7 +25,7 @@ On a static host the community list falls back to the visitor's own browser stor
 - Every node costs 1 skillpoint (matches the in-game "Skillpoint Cost: 1" and 7-node "Path Cost: 7").
 - Hover a node: shows the cheapest path from the nearest starting node (or from nodes you already own) and its cost.
 - Only a starting node, or a node next to one you own, can be bought directly; "Purchase the whole path" buys everything on the path.
-- Keystones sever connections: a path can end on a keystone but never runs through one, and an owned keystone does not open the nodes around it (its other links are drawn dashed).
+- Keystones sever connections: a path can end on a keystone but never runs through one, and an owned keystone does not open the nodes around it (its other links disappear).
 - Refunding a node also refunds anything cut off from your starting node.
 
 ## Layout
