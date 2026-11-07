@@ -23,17 +23,38 @@ export function readUrl() {
 }
 export const shareUrl = (sel) => { writeUrl(sel); return location.href; };
 
-// Community: local server API (data/community.json) with a localStorage fallback.
+// Community: 1) Firebase Firestore REST (works on any static host) if js/config.js is filled in,
+// 2) the local server API (server.mjs / Cloudflare function), 3) this browser's localStorage.
+import { FIREBASE } from "./config.js";
 const LS = "mythfall.community.v1";
 const lsRead = () => { try { return JSON.parse(localStorage.getItem(LS) || "[]"); } catch { return []; } };
+const fs = () => FIREBASE.projectId && FIREBASE.apiKey;
+const FS = () => `https://firestore.googleapis.com/v1/projects/${FIREBASE.projectId}/databases/(default)/documents`;
+const fromDoc = (d) => ({ id: d.name.split("/").pop(), name: d.fields.name.stringValue, skills: (d.fields.skills.arrayValue.values || []).map((v) => v.stringValue), createdAt: d.fields.createdAt.timestampValue });
 export const community = {
   async list() {
+    if (fs()) {
+      try {
+        const r = await fetch(`${FS()}:runQuery?key=${FIREBASE.apiKey}`, { method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ structuredQuery: { from: [{ collectionId: "builds" }], orderBy: [{ field: { fieldPath: "createdAt" }, direction: "DESCENDING" }], limit: 100 } }) });
+        if (!r.ok) throw 0;
+        return { builds: (await r.json()).filter((x) => x.document).map((x) => fromDoc(x.document)), local: false };
+      } catch { /* fall through */ }
+    }
     try {
       const r = await fetch("api/builds"); if (!r.ok) throw 0;
       return { builds: await r.json(), local: false };
     } catch { return { builds: lsRead().slice().reverse(), local: true }; }
   },
   async publish(name, skills) {
+    if (fs()) {
+      try {
+        const body = { fields: { name: { stringValue: name }, skills: { arrayValue: { values: skills.map((s) => ({ stringValue: s })) } }, createdAt: { timestampValue: new Date().toISOString() } } };
+        const r = await fetch(`${FS()}/builds?key=${FIREBASE.apiKey}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        if (!r.ok) throw 0;
+        return { build: fromDoc(await r.json()), local: false };
+      } catch { /* fall through */ }
+    }
     try {
       const r = await fetch("api/builds", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, skills }) });
       if (!r.ok) throw 0;

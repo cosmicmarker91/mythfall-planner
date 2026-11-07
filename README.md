@@ -14,11 +14,24 @@ Any static server pointed at `public/` also works.
 
 Shared build links (`#s=...`) work everywhere with no setup.
 
-### Shared community list (free, optional)
-`functions/api/builds.js` is a Cloudflare Pages Function that stores published builds in Workers KV (free tier, no card).
-1. Cloudflare dashboard → Storage & Databases → KV → **Create** a namespace (e.g. `mythfall-builds`).
-2. Your Pages project → Settings → Bindings → **Add → KV namespace** → variable name `BUILDS`, pick that namespace (do it for Production).
-3. Redeploy. Without this binding the site still works; Publish just saves to the visitor's own browser.
+### Shared community list (free, works on any static host)
+Uses Firebase Firestore straight from the browser (free Spark plan, no card).
+1. console.firebase.google.com → **Create a project** (skip Google Analytics).
+2. **Build → Firestore Database → Create database** → pick a location → **Production mode**.
+3. Firestore → **Rules** tab → paste this, then **Publish**:
+```
+rules_version = '2';
+service cloud.firestore { match /databases/{db}/documents { match /builds/{id} {
+  allow read: if true;
+  allow create: if request.resource.data.keys().hasOnly(['name','skills','createdAt'])
+    && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 40
+    && request.resource.data.skills is list && request.resource.data.skills.size() > 0 && request.resource.data.skills.size() <= 500;
+  allow update, delete: if false;
+} } }
+```
+4. Project settings (gear) → General → **Your apps → Web (`</>`)** → register an app → copy `projectId` and `apiKey` from the config shown.
+5. Paste both into `public/js/config.js`, push to GitHub. These values are meant to be public.
+Without this, Publish saves to the visitor's own browser. (`functions/api/builds.js` is an alternative that needs Cloudflare Pages + KV; you can delete it.)
 
 ## Where the data comes from (patch v0.21.0)
 - **Names, effects, icons:** https://mythfall.wiki.gg/wiki/Skill_Tree (all 133 node types, 16x16 icons in `public/assets/icons/`). Transcribed in `tools/catalog.py`.

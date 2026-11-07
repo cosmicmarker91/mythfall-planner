@@ -47,9 +47,14 @@ button, input, .skill { cursor: var(--cursor); font-family: inherit; }
 .skill:not(.lit):not(.start) .ico { filter: brightness(.385); }   /* the game dims locked icons to ~38% */
 .skill.lit .panel:not(.key):not(.start) { fill: #252e30; }
 .skill.lit .bd:not(.key):not(.start) { fill: #3c4a4f; }
+/* owned / highlighted nodes get the lighter panel the game uses (sampled from a purchased node) */
+.skill.owned .band, .skill.path .band, .skill.hover .band, .skill.pinned .band { fill: #3c4a4f; }
+.skill.owned .panel:not(.start), .skill.path .panel:not(.start), .skill.hover .panel:not(.start), .skill.pinned .panel:not(.start) { fill: #5d7176; }
 .skill.path .bd, .skill.path .bd.key, .skill.path .bd.start { fill: var(--link); }
 .skill.hover .bd, .skill.hover .bd.key, .skill.hover .bd.start { fill: #fff; }
 .skill.travel.path .band { fill: var(--link); }
+.skill.travel.owned .band { fill: #3c4a4f; }
+.skill.travel.owned .panel, .skill.travel.path .panel, .skill.travel.hover .panel, .skill.travel.pinned .panel { fill: #5d7176; }
 .skill.travel.hover .band { fill: #fff; }
 
 .skill .tick { display: none; pointer-events: none; }
