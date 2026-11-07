@@ -1,7 +1,7 @@
 // Smooth wheel zoom (about the cursor), drag pan, pinch zoom, tap detection.
 export class Viewport {
-  constructor(viewport, content, { worldW, worldH, onTap, padTop = 90, padBottom = 50 }) {
-    Object.assign(this, { vp: viewport, el: content, W: worldW, H: worldH, onTap, padTop, padBottom });
+  constructor(viewport, content, { worldW, worldH, onTap, onView, padTop = 90, padBottom = 50 }) {
+    Object.assign(this, { vp: viewport, el: content, W: worldW, H: worldH, onTap, onView, padTop, padBottom });
     this.cur = { x: 0, y: 0, s: 1 };
     this.tgt = { x: 0, y: 0, s: 1 };
     this.ptrs = new Map(); this.raf = 0; this.last = 0;
@@ -41,7 +41,7 @@ export class Viewport {
     t.x = Math.min(Math.max(t.x, vw * m - w), vw * (1 - m));
     t.y = Math.min(Math.max(t.y, vh * m - h), vh * (1 - m));
   }
-  #apply() { this.el.style.transform = `translate(${this.cur.x}px,${this.cur.y}px) scale(${this.cur.s})`; }
+  #apply() { this.el.style.transform = `translate(${this.cur.x}px,${this.cur.y}px) scale(${this.cur.s})`; if (this.onView) this.onView(this.cur.s, this.fitScale); }
   #kick() { if (!this.raf) { this.last = performance.now(); this.raf = requestAnimationFrame((t) => this.#tick(t)); } }
   #tick(now) {
     const dt = Math.min(now - this.last, 50); this.last = now;

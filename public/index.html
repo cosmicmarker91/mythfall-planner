@@ -16,8 +16,6 @@
     <div class="free">Temporarily Free!</div>
   </div>
 
-  <div id="points" title="Skills selected"><img src="assets/skill-point.png" alt=""><span id="count">0</span></div>
-
   <div id="buildbar">
     <input id="buildName" maxlength="40" placeholder="Name your build" aria-label="Build name">
     <button id="share" class="mf-btn sm">Copy Link</button>
@@ -25,7 +23,22 @@
     <button id="communityBtn" class="mf-btn sm">Community</button>
     <button id="fit" class="mf-btn sm dim" title="Re-center the view">Fit</button>
   </div>
-  <div id="hint">Scroll to zoom · Drag to pan · Click a skill to select</div>
+
+  <div id="points" title="Skillpoints spent"><img src="assets/skill-point.png" alt=""><span id="count">0</span></div>
+
+  <aside id="panel" aria-live="polite">
+    <div class="p-head">
+      <div class="p-icon"><img id="pIcon" alt=""></div>
+      <div class="p-title"><div id="pName"></div><div id="pType"></div></div>
+    </div>
+    <div class="p-fx" id="pEffects"></div>
+    <div class="p-foot">
+      <div id="pCost"></div>
+      <button id="pBtn" class="p-btn">Purchase</button>
+      <button id="pPath" class="p-link" hidden></button>
+    </div>
+  </aside>
+  <div id="hint">Scroll to zoom · Drag to pan · Hover for the path · Click to pin · Double-click to purchase</div>
 
   <dialog id="community">
     <div class="dlg-head"><h2>Community Builds</h2><button id="closeCommunity" class="mf-btn sm dim">Close</button></div>

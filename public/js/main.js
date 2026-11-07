@@ -1,4 +1,5 @@
 import { loadTree } from "./tree-source.js";
+import { Graph } from "./graph.js";
 import { buildWorld } from "./world.js";
 import { Viewport } from "./viewport.js";
 import { Selection, writeUrl, readUrl, shareUrl, community } from "./build-store.js";
@@ -12,20 +13,59 @@ function toast(msg, action) {
 }
 
 const tree = await loadTree();
-const world = buildWorld($("world"), tree);
-const sel = new Selection(new Set(tree.skills.map((s) => s.id)));
+const graph = new Graph(tree);
+const sel = new Selection(new Set(tree.nodes.map((n) => n.id)));   // sel.set = the nodes you have purchased
+let pinned = "nomad", hover = null;
 
-const render = () => {
-  world.render(sel.set);
+const TYPE = { start: "Starting Node", keystone: "Keystone", notable: "Notable", travel: "Travel Node" };
+const target = () => hover || pinned;
+
+const world = buildWorld($("world"), tree, { onHover: (id) => { hover = id; render(); } });
+
+function renderPanel(id, plan) {
+  const n = graph.nodes.get(id), owned = sel.set.has(id);
+  $("pIcon").src = n.icon; $("pIcon").parentElement.className = "p-icon " + n.kind;
+  $("pName").textContent = n.name; $("pType").textContent = TYPE[n.kind];
+  $("pEffects").replaceChildren(...n.effect.map((t) => { const d = document.createElement("div"); d.textContent = t; return d; }));
+  const btn = $("pBtn"); btn.classList.toggle("refund", owned); btn.disabled = false;
+  if (owned) { $("pCost").textContent = "Purchased"; btn.textContent = "Refund"; }
+  else if (!plan) { $("pCost").textContent = "No path from a starting node"; btn.textContent = "Cannot Reach"; btn.disabled = true; }
+  else if (plan.cost === 1) { $("pCost").textContent = "Skillpoint Cost: 1"; btn.textContent = "Purchase"; }
+  else { $("pCost").textContent = `Path Cost: ${plan.cost} skillpoints`; btn.textContent = "Cannot Reach"; btn.disabled = true; } // like the game: only a node next to one you own (or a starting node) can be bought
+  const pp = $("pPath"); pp.hidden = !(plan && plan.cost > 1); pp.textContent = plan ? `Purchase the whole path (${plan.cost} skillpoints)` : "";
+}
+
+function render() {
+  const id = target(), plan = sel.set.has(id) ? null : graph.plan(id, sel.set);
+  world.render({ owned: sel.set, avail: graph.available(sel.set), plan, hover });
+  renderPanel(id, plan);
   $("count").textContent = sel.set.size;
   const nameEl = $("buildName"); if (document.activeElement !== nameEl) nameEl.value = sel.name;
-};
+}
 sel.onChange(() => { render(); writeUrl(sel); });
+
+function purchase(id, wholePath = false) {
+  const plan = graph.plan(id, sel.set);
+  if (!plan) return toast("Cannot reach that node: paths can't run through keystones");
+  if (plan.cost > 1 && !wholePath) return toast(`Cannot reach yet. It needs ${plan.cost} skillpoints along the path`);
+  sel.replace([...sel.set, ...plan.path]);
+}
+function refund(id) {
+  const next = new Set(sel.set); next.delete(id);
+  const kept = graph.prune(next), lost = next.size - kept.size;
+  sel.replace([...kept]);
+  if (lost) toast(`Also refunded ${lost} node${lost > 1 ? "s" : ""} that were cut off`);
+}
+const act = (id) => (sel.set.has(id) ? refund(id) : purchase(id));
+$("pBtn").onclick = () => act(target());
+$("pPath").onclick = () => purchase(target(), true);
 
 const view = new Viewport($("viewport"), $("world"), {
   worldW: tree.world.width, worldH: tree.world.height,
-  onTap: (el) => { const g = el && el.closest && el.closest("[data-id]"); if (g) sel.toggle(g.dataset.id); },
+  onTap: (el) => { const g = el && el.closest && el.closest("[data-id]"); if (g) { pinned = g.dataset.id; render(); } },
+  onView: (s, fit) => world.setScale(s, fit),
 });
+$("viewport").addEventListener("dblclick", (e) => { const g = e.target.closest && e.target.closest("[data-id]"); if (g) { pinned = g.dataset.id; if (!sel.set.has(pinned)) purchase(pinned, true); } });
 
 // restore shared build from the URL
 const loadFromUrl = () => {
@@ -35,7 +75,6 @@ const loadFromUrl = () => {
   if (bad) toast(`${bad} skill${bad > 1 ? "s" : ""} in this link no longer exist`);
 };
 loadFromUrl(); render();
-world.whenReady.then(render); // lit icons are cut from the screenshots, so redraw once they have decoded
 addEventListener("hashchange", () => { if (location.href !== lastHref) loadFromUrl(); });
 let lastHref = location.href; sel.onChange(() => { lastHref = location.href; });
 
@@ -53,7 +92,7 @@ $("share").onclick = async () => {
   catch { prompt("Copy this link:", url); }
 };
 $("publish").onclick = async () => {
-  if (!sel.set.size) return toast("Select some skills first");
+  if (!sel.set.size) return toast("Purchase some skills first");
   if (!sel.name) { $("buildName").focus(); return toast("Give your build a name first"); }
   const { local } = await community.publish(sel.name, sel.ids());
   toast(local ? "Saved locally (server not running)" : "Published to community");
