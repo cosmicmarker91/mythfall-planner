@@ -16,6 +16,35 @@
     <div class="free">Temporarily Free!</div>
   </div>
 
+  <button id="charBtn" class="char-btn" title="Character" aria-label="Open character">
+    <svg viewBox="0 0 10 9" shape-rendering="crispEdges" aria-hidden="true">
+      <path fill="#090a13" d="M2 0h6v1H2zM1 1h1v1H1zM8 1h1v1H8zM0 2h1v7H0zM9 2h1v7H9zM2 3h6v2H2zM4 5h2v3H4zM1 8h3v1H1zM6 8h3v1H6z"/>
+      <path fill="#fff" d="M2 1h6v1H2zM1 2h8v1H1zM1 3h1v2H1zM8 3h1v2H8zM1 5h3v3H1zM6 5h3v3H6z"/>
+    </svg>
+  </button>
+
+  <div id="charOverlay" hidden>
+    <section id="charPanel" role="dialog" aria-modal="true" aria-label="Character">
+      <h2 class="c-title">Character</h2>
+      <button id="charClose" class="c-x" aria-label="Close">X</button>
+      <div class="c-cols">
+        <div class="c-left">
+          <h3 class="c-h">Equipment</h3>
+          <div id="slots" class="c-slots"></div>
+          <div id="pills" class="c-pills"></div>
+          <h3 class="c-h">Base Stats</h3>
+          <div class="c-limit"><div id="limitFill"></div><span id="limitTxt">Stat Limit: 0/100</span></div>
+          <div class="c-stats" id="stats"></div>
+        </div>
+        <div class="c-right">
+          <h3 class="c-h">Bonus Stats</h3>
+          <div id="bonusList" class="c-bonuslist"></div>
+        </div>
+      </div>
+      <div id="charTip" class="c-tip" hidden></div>
+    </section>
+  </div>
+
   <div id="buildbar">
     <input id="buildName" maxlength="40" placeholder="Name your build" aria-label="Build name">
     <button id="share" class="mf-btn sm">Copy Link</button>

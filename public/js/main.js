@@ -3,6 +3,8 @@ import { Graph } from "./graph.js";
 import { buildWorld } from "./world.js";
 import { Viewport } from "./viewport.js";
 import { Selection, writeUrl, readUrl, shareUrl, community } from "./build-store.js";
+import { initCharacter } from "./character.js";
+import { computeStats, liveLine } from "./stats.js";
 
 const $ = (id) => document.getElementById(id);
 let toastTimer;
@@ -24,9 +26,10 @@ const world = buildWorld($("world"), tree, { onHover: (id) => { hover = id; rend
 
 function renderPanel(id, plan) {
   const n = graph.nodes.get(id), owned = sel.set.has(id);
+  const stats = computeStats([...sel.set].map((i) => graph.nodes.get(i)).filter(Boolean), sel.base);
   $("pIcon").src = n.icon; $("pIcon").parentElement.className = "p-icon " + n.kind;
   $("pName").textContent = n.name; $("pType").textContent = TYPE[n.kind];
-  $("pEffects").replaceChildren(...n.effect.map((t) => { const d = document.createElement("div"); d.textContent = t; return d; }));
+  $("pEffects").replaceChildren(...n.effect.map((t) => { const d = document.createElement("div"); d.textContent = liveLine(t, stats); return d; }));
   const btn = $("pBtn"); btn.classList.toggle("refund", owned); btn.disabled = false;
   if (owned) { $("pCost").textContent = "Purchased"; btn.textContent = "Refund"; }
   else if (!plan) { $("pCost").textContent = "No path from a starting node"; btn.textContent = "Cannot Reach"; btn.disabled = true; }
@@ -42,7 +45,8 @@ function render() {
   $("count").textContent = sel.set.size;
   const nameEl = $("buildName"); if (document.activeElement !== nameEl) nameEl.value = sel.name;
 }
-sel.onChange(() => { render(); writeUrl(sel); });
+const character = initCharacter(sel, { $, graph, toast });
+sel.onChange(() => { render(); character.render(); writeUrl(sel); });
 
 function purchase(id, wholePath = false) {
   const plan = graph.plan(id, sel.set);
@@ -74,8 +78,8 @@ $("viewport").addEventListener("dblclick", (e) => { const g = e.target.closest &
 
 // restore shared build from the URL
 const loadFromUrl = () => {
-  const { ids, name } = readUrl();
-  sel.replace(ids, name);
+  const { ids, name, base } = readUrl();
+  sel.base = base; sel.replace(ids, name);
   const bad = ids.filter((i) => !sel.valid.has(i)).length;
   if (bad) toast(`${bad} skill${bad > 1 ? "s" : ""} in this link no longer exist`);
 };
