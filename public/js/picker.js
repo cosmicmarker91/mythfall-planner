@@ -1,5 +1,6 @@
 // Item picker: tabs per equipment slot, search, rarity-coloured list. Hover = tooltip, click = equip.
 import { SLOT_KEYS, SLOT_NAMES, RARITY, iconOf, attachTooltip } from "./items.js";
+const RANK = { Common: 0, Uncommon: 1, Rare: 2, Epic: 3, Mythic: 4 };   // list order: rarity, then tier, then name
 const mk = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 
 export function initPicker({ $, data, sel, getStats }) {
@@ -19,7 +20,9 @@ export function initPicker({ $, data, sel, getStats }) {
     $("pickTitle").textContent = tab === "Armor" ? "Armor" : tab;
     const q = search.value.trim().toLowerCase(), cur = equipped();
     list.replaceChildren();
-    for (const it of data.items.filter((i) => i.type === tab && (!q || i.name.toLowerCase().includes(q)))) {
+    const shown = data.items.filter((i) => i.type === tab && (!q || i.name.toLowerCase().includes(q)))
+      .sort((a, b) => (RANK[a.rarity] ?? 9) - (RANK[b.rarity] ?? 9) || parseInt(a.tier.slice(1)) - parseInt(b.tier.slice(1)) || a.name.localeCompare(b.name));
+    for (const it of shown) {
       const b = mk("button", "pk-item" + (cur && cur.id === it.id ? " cur" : "")); b.setAttribute("aria-label", it.name);
       const img = new Image(); img.src = iconOf(it); img.alt = ""; b.append(img, mk("span", "pk-tier", it.tier));
       b.style.borderColor = RARITY[it.rarity];
