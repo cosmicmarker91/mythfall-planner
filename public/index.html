@@ -45,6 +45,18 @@
     </section>
   </div>
 
+  <div id="pickOverlay" hidden>
+    <section class="pk-panel" role="dialog" aria-modal="true" aria-label="Items">
+      <h2 class="c-title" id="pickTitle">Weapon</h2>
+      <button id="pickClose" class="c-x" aria-label="Close">X</button>
+      <div id="pickTabs" class="pk-tabs"></div>
+      <div class="pk-bar"><input id="pickSearch" placeholder="Search items" aria-label="Search items"><button id="pickClear" class="c-btn wide" hidden>Unequip</button></div>
+      <div id="pickList" class="pk-list"></div>
+      <div id="pickEmpty" class="pk-empty" hidden>No items found</div>
+    </section>
+  </div>
+  <div id="itemTip" class="itemtip" hidden></div>
+
   <div id="buildbar">
     <input id="buildName" maxlength="40" placeholder="Name your build" aria-label="Build name">
     <button id="share" class="mf-btn sm">Copy Link</button>

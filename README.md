@@ -39,6 +39,14 @@ Without this, Publish saves to the visitor's own browser. (`functions/api/builds
 - `python3 tools/build-tree.py` merges the two into `public/data/tree.json` (the only file the site loads for tree data).
 - When official data exists, replace `tree.json` (same shape: `nodes[{id,name,kind,icon,effect,x,y}]`, `edges[[a,b]]`) – nothing else needs to change.
 
+## Updating items after a patch (2 steps)
+1. Open https://mythfall.wiki.gg/index.php?title=Module:Data/items.json&action=raw in your browser and save it as `source/items.raw.json` (a TextEdit `.rtf` is converted automatically).
+2. `python3 tools/build-items.py` -> rewrites `public/data/items.json` and downloads any new icons.
+Skill tree text/icons update the same way:
+1. Open https://mythfall.wiki.gg/index.php?title=Module:Data/skill-tree.json&action=raw and save it as `source/skill-tree.raw.json`.
+2. `python3 tools/build-tree.py` -> refreshes names/effects/icons and tells you (lines starting with `!`) if a patch added, removed or renamed nodes.
+The game data has no positions or links, so a *new* node still needs its grid position added to `source/layout.json`.
+
 ## Rules the planner implements
 - Every node costs 1 skillpoint (matches the in-game "Skillpoint Cost: 1" and 7-node "Path Cost: 7").
 - Hover a node: shows the cheapest path from the nearest starting node (or from nodes you already own) and its cost.

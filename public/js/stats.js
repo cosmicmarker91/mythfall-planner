@@ -6,14 +6,25 @@ const ORDER = ["Speed", "Critical Chance", "Mana Regeneration", "Poison Chance",
   "Bonus Damage Percent", "Festering", "Rending Fury", "Bloodlust", "Bonus Invulnerability"];
 const rename = (n) => RENAME[n] || n;
 
-// Lines that only apply in some situations ("With full Health", "(per Nearby Enemy ...)", "With Melee Weapons:") are not counted.
-function parse(effect) {
+// Does a "With ..." header apply right now? Weapon-type and equipped-set conditions can be answered; health/enemy ones cannot (not counted).
+function condition(header, ctx) {
+  const h = header.replace(/^With\s*/, "").replace(/:$/, "").trim();
+  if (h.startsWith("-")) return h.split(" - ").map((x) => x.replace(/^-\s*/, "").trim()).filter(Boolean).every((n) => ctx.names.has(n));
+  let m = h.match(/^(Melee|Ranged|Magic) Weapons?$/);
+  if (m) return !!ctx.weapon && ctx.weapon.sub.startsWith(m[1]);
+  if (/^[A-Z][a-z]+$/.test(h)) return !!ctx.weapon && ctx.weapon.cls === h;   // Staff, Bow, Cannon, Throwable, Sword ...
+  return false;
+}
+
+// Lines that only apply in some situations ("With full Health", "(per Nearby Enemy ...)") are not counted.
+function parse(effect, ctx) {
   const out = { flat: [], derived: [], mult: [], gain: [] };
-  let conditional = false;
+  let active = true;
   for (const raw of effect) {
     const line = raw.trim();
-    if (/^(With|Without) /.test(line)) { conditional = true; continue; }
-    if (conditional || line.includes("(per ")) continue;
+    if (/^With /.test(line)) { active = condition(line, ctx); continue; }
+    if (/^Without /.test(line)) { active = false; continue; }
+    if (!active || line.includes("(per ")) continue;
     let m;
     if ((m = line.match(/^Gain No (.+)$/))) out.mult.push([rename(m[1]), 0]);
     else if ((m = line.match(/^Gain ([^:]+):/))) out.gain.push(m[1]);
@@ -25,11 +36,25 @@ function parse(effect) {
   return out;
 }
 
-// nodes: owned node objects; points: base points in BASE order.
-export function computeStats(nodes, points) {
+// Equipment adds flat stats the same way (signed numbers like "+5"; unsigned ones are the item's own damage/rate/range).
+function itemLines(item, ctx) {
+  const out = [], tip = item.tip || {};
+  const take = (list) => { for (const e of list || []) if (e.Label && e.Label !== "Scaling") {
+    if (/^[+-]\d/.test(e.Text)) out.push(`${e.Text} ${e.Label}`); else if (e.Text === "Gain") out.push(`Gain ${e.Label}:`); else if (/^\d+(\.\d+)?x$/.test(e.Text)) out.push(`${e.Text} ${e.Label}`);
+  } };
+  take(tip.Stats);
+  const c = tip.Conditional;
+  if (c && c.length && condition(c[0].Text || "", ctx)) take(c.slice(1));
+  return out;
+}
+
+// nodes: owned node objects; points: base points in BASE order; equipped: equipped item objects.
+export function computeStats(nodes, points, equipped = []) {
   const flat = {}, derived = [], mult = {}, gains = {};
-  for (const n of nodes) {
-    const p = parse(n.effect);
+  const ctx = { weapon: equipped.find((i) => i.type === "Weapon") || null, names: new Set(equipped.map((i) => i.name)) };
+  const lists = [...nodes.map((n) => n.effect), ...equipped.map((i) => itemLines(i, ctx))];
+  for (const effect of lists) {
+    const p = parse(effect, ctx);
     for (const [k, v] of p.flat) flat[k] = (flat[k] || 0) + v;
     derived.push(...p.derived);
     for (const [k, v] of p.mult) mult[k] = (mult[k] ?? 1) * v;

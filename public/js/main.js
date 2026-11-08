@@ -5,6 +5,8 @@ import { Viewport } from "./viewport.js";
 import { Selection, writeUrl, readUrl, shareUrl, community } from "./build-store.js";
 import { initCharacter } from "./character.js";
 import { computeStats, liveLine } from "./stats.js";
+import { loadItems, SLOT_KEYS } from "./items.js";
+import { initPicker } from "./picker.js";
 
 const $ = (id) => document.getElementById(id);
 let toastTimer;
@@ -15,6 +17,7 @@ function toast(msg, action) {
 }
 
 const tree = await loadTree();
+const data = await loadItems();
 const graph = new Graph(tree);
 const sel = new Selection(new Set(tree.nodes.map((n) => n.id)));   // sel.set = the nodes you have purchased
 let pinned = null, hover = null;   // pinned = the node you clicked (shows a tick; click it again to buy)
@@ -26,7 +29,7 @@ const world = buildWorld($("world"), tree, { onHover: (id) => { hover = id; rend
 
 function renderPanel(id, plan) {
   const n = graph.nodes.get(id), owned = sel.set.has(id);
-  const stats = computeStats([...sel.set].map((i) => graph.nodes.get(i)).filter(Boolean), sel.base);
+  const stats = computeStats([...sel.set].map((i) => graph.nodes.get(i)).filter(Boolean), sel.base, Object.values(sel.equip).map((i) => data.byId.get(i)).filter(Boolean));
   $("pIcon").src = n.icon; $("pIcon").parentElement.className = "p-icon " + n.kind;
   $("pName").textContent = n.name; $("pType").textContent = TYPE[n.kind];
   $("pEffects").replaceChildren(...n.effect.map((t) => { const d = document.createElement("div"); d.textContent = liveLine(t, stats); return d; }));
@@ -45,7 +48,9 @@ function render() {
   $("count").textContent = sel.set.size;
   const nameEl = $("buildName"); if (document.activeElement !== nameEl) nameEl.value = sel.name;
 }
-const character = initCharacter(sel, { $, graph, toast });
+let picker;
+const character = initCharacter(sel, { $, graph, data, openPicker: (t) => picker.open(t) });
+picker = initPicker({ $, data, sel, getStats: () => character.stats() });
 sel.onChange(() => { render(); character.render(); writeUrl(sel); });
 
 function purchase(id, wholePath = false) {
@@ -78,8 +83,9 @@ $("viewport").addEventListener("dblclick", (e) => { const g = e.target.closest &
 
 // restore shared build from the URL
 const loadFromUrl = () => {
-  const { ids, name, base } = readUrl();
-  sel.base = base; sel.replace(ids, name);
+  const { ids, name, base, equip } = readUrl();
+  sel.base = base; sel.equip = {}; for (const id of equip) { const it = data.byId.get(id); if (it) sel.equip[SLOT_KEYS[it.type]] = id; }
+  sel.replace(ids, name);
   const bad = ids.filter((i) => !sel.valid.has(i)).length;
   if (bad) toast(`${bad} skill${bad > 1 ? "s" : ""} in this link no longer exist`);
 };
