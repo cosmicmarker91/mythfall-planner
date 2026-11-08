@@ -36,6 +36,13 @@ export function writeUrl(sel) {
   if (sel.name) p.set("n", sel.name);
   const hash = p.toString();
   history.replaceState(null, "", location.pathname + location.search + (hash ? "#" + hash : ""));
+  try { localStorage.setItem(LAST, hash); } catch {}   // remember my build for next time I open the site
+}
+const LAST = "mythfall.lastBuild.v1";
+// opening the site with no link restores the build you were last working on
+export function restoreLast() {
+  if (location.hash.length > 1) return;
+  try { const h = localStorage.getItem(LAST); if (h) history.replaceState(null, "", location.pathname + location.search + "#" + h); } catch {}
 }
 export function readUrl() {
   const p = new URLSearchParams(location.hash.slice(1)), clamp = (x) => Math.max(0, Math.min(20, x || 0));
@@ -56,13 +63,35 @@ export const shareUrl = (sel) => { writeUrl(sel); return location.href; };
 
 // Community: 1) Firebase Firestore REST (works on any static host) if js/config.js is filled in,
 // 2) the local server API (server.mjs / Cloudflare function), 3) this browser's localStorage.
-import { FIREBASE } from "./config.js";
+import { FIREBASE, ADMIN_EMAIL } from "./config.js";
 const LS = "mythfall.community.v1";
 const lsRead = () => { try { return JSON.parse(localStorage.getItem(LS) || "[]"); } catch { return []; } };
 const fs = () => FIREBASE.projectId && FIREBASE.apiKey;
 const FS = () => `https://firestore.googleapis.com/v1/projects/${FIREBASE.projectId}/databases/(default)/documents`;
 const fromDoc = (d) => ({ id: d.name.split("/").pop(), name: d.fields.name.stringValue, skills: (d.fields.skills.arrayValue.values || []).map((v) => v.stringValue), createdAt: d.fields.createdAt.timestampValue });
+let adminToken = null, adminPass = null, adminExp = 0;   // memory only, never stored
 export const community = {
+  // Typed admin code = the real password of a Firebase user, so the code is not in the source and the database enforces it.
+  async adminLogin(pass) {
+    adminPass = pass;
+    if (!fs()) { adminToken = "local"; adminExp = Infinity; return true; }   // local server / browser storage: nothing to protect
+    const r = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${FIREBASE.apiKey}`, { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: ADMIN_EMAIL, password: pass, returnSecureToken: true }) });
+    if (!r.ok) { adminPass = adminToken = null; return false; }
+    const j = await r.json(); adminToken = j.idToken; adminExp = Date.now() + (+j.expiresIn - 60) * 1000; return true;
+  },
+  adminOff() { adminToken = adminPass = null; },
+  isAdmin: () => !!adminToken,
+  async remove(id) {
+    if (adminToken && Date.now() > adminExp && adminPass) await this.adminLogin(adminPass);   // token lasts ~1h
+    if (fs()) {
+      const r = await fetch(`${FS()}/builds/${encodeURIComponent(id)}?key=${FIREBASE.apiKey}`, { method: "DELETE", headers: { Authorization: `Bearer ${adminToken}` } });
+      if (!r.ok) throw new Error("delete refused");
+      return;
+    }
+    try { const r = await fetch(`api/builds/${encodeURIComponent(id)}`, { method: "DELETE" }); if (r.ok) return; } catch {}
+    try { localStorage.setItem(LS, JSON.stringify(lsRead().filter((b) => b.id !== id))); } catch {}
+  },
   async list() {
     if (fs()) {
       try {

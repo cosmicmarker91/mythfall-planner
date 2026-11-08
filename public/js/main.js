@@ -2,7 +2,7 @@ import { loadTree } from "./tree-source.js";
 import { Graph } from "./graph.js";
 import { buildWorld } from "./world.js";
 import { Viewport } from "./viewport.js";
-import { Selection, writeUrl, readUrl, shareUrl, community, setCodec } from "./build-store.js";
+import { Selection, writeUrl, readUrl, shareUrl, community, setCodec, restoreLast } from "./build-store.js";
 import { initCharacter } from "./character.js";
 import { computeStats, liveLine } from "./stats.js";
 import { loadItems, SLOT_KEYS } from "./items.js";
@@ -91,7 +91,7 @@ const loadFromUrl = () => {
   const bad = ids.filter((i) => !sel.valid.has(i)).length;
   if (bad) toast(`${bad} skill${bad > 1 ? "s" : ""} in this link no longer exist`);
 };
-loadFromUrl(); render();
+restoreLast(); loadFromUrl(); render();
 addEventListener("hashchange", () => { if (location.href !== lastHref) loadFromUrl(); });
 let lastHref = location.href; sel.onChange(() => { lastHref = location.href; });
 
@@ -129,10 +129,31 @@ const openCommunity = async () => {
     meta.append(nm, sub);
     const load = document.createElement("button"); load.className = "mf-btn sm"; load.textContent = "Load";
     load.onclick = () => { sel.replace(b.skills, b.name); dlg.close(); };
-    li.append(meta, load); ul.append(li);
+    li.append(meta, load);
+    if (community.isAdmin()) {
+      const del = document.createElement("button"); del.className = "mf-btn sm del"; del.textContent = "Delete";
+      del.onclick = async () => {
+        if (!confirm(`Delete "${b.name}" from the community?`)) return;
+        try { await community.remove(b.id); toast("Deleted"); openCommunity(); } catch { toast("Delete refused: check the Firebase rules / admin user"); }
+      };
+      li.append(del);
+    }
+    ul.append(li);
   }
   dlg.showModal();
 };
 $("communityBtn").onclick = openCommunity;
 $("closeCommunity").onclick = () => dlg.close();
 dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
+
+// ---- admin mode: type the admin code anywhere (not inside a text box) ----
+const ADMIN_CODE = "cosm1c"; let typed = "";
+addEventListener("keydown", async (e) => {
+  if (e.target.closest && e.target.closest("input, textarea") || e.key.length !== 1) return;
+  typed = (typed + e.key).slice(-ADMIN_CODE.length);
+  if (typed !== ADMIN_CODE) return;
+  typed = "";
+  if (community.isAdmin()) { community.adminOff(); document.body.classList.remove("admin"); toast("Admin mode off"); return; }
+  if (await community.adminLogin(ADMIN_CODE)) { document.body.classList.add("admin"); toast("Admin mode on: open Community to delete builds"); }
+  else toast("Admin sign-in failed (admin user not set up in Firebase yet)");
+});

@@ -40,6 +40,12 @@ http.createServer(async (req, res) => {
       }
       return send(res, 405, { error: "method not allowed" });
     }
+    const del = url.pathname.match(/^\/api\/builds\/([\w-]+)$/);
+    if (del && req.method === "DELETE") {
+      const all = (await readBuilds()).filter((b) => b.id !== del[1]);
+      await fs.writeFile(store, JSON.stringify(all, null, 1));
+      return send(res, 200, { ok: true });
+    }
     let rel = decodeURIComponent(url.pathname); if (rel.endsWith("/")) rel += "index.html";
     const file = path.normalize(path.join(pub, rel));
     if (!file.startsWith(pub + path.sep)) return send(res, 403, "forbidden", "text/plain");
