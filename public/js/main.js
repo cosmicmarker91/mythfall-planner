@@ -2,7 +2,7 @@ import { loadTree } from "./tree-source.js";
 import { Graph } from "./graph.js";
 import { buildWorld } from "./world.js";
 import { Viewport } from "./viewport.js";
-import { Selection, writeUrl, readUrl, shareUrl, community } from "./build-store.js";
+import { Selection, writeUrl, readUrl, shareUrl, community, setCodec } from "./build-store.js";
 import { initCharacter } from "./character.js";
 import { computeStats, liveLine } from "./stats.js";
 import { loadItems, SLOT_KEYS } from "./items.js";
@@ -19,6 +19,7 @@ function toast(msg, action) {
 const tree = await loadTree();
 const data = await loadItems();
 const graph = new Graph(tree);
+setCodec(tree.nodes.map((n) => n.id));
 const sel = new Selection(new Set(tree.nodes.map((n) => n.id)));   // sel.set = the nodes you have purchased
 let pinned = null, hover = null;   // pinned = the node you clicked (shows a tick; click it again to buy)
 
@@ -83,7 +84,8 @@ $("viewport").addEventListener("dblclick", (e) => { const g = e.target.closest &
 
 // restore shared build from the URL
 const loadFromUrl = () => {
-  const { ids, name, base, equip } = readUrl();
+  const { ids, name, base, equip, stale } = readUrl();
+  if (stale) toast("This link was made for an older version of the tree, so its skills could not be loaded");
   sel.base = base; sel.equip = {}; for (const id of equip) { const it = data.byId.get(id); if (it) sel.equip[SLOT_KEYS[it.type]] = id; }
   sel.replace(ids, name);
   const bad = ids.filter((i) => !sel.valid.has(i)).length;

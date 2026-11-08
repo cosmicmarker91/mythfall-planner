@@ -1,5 +1,4 @@
 // Selected-skill state + URL sharing + community storage.
-// URL format:  #s=id1,id2,id3&n=Build%20name   (ids are the stable skill ids from tree.json)
 export class Selection {
   constructor(validIds) { this.valid = validIds; this.set = new Set(); this.name = ""; this.base = [0, 0, 0, 0, 0, 0]; this.equip = {}; this.listeners = []; }
   onChange(fn) { this.listeners.push(fn); }
@@ -12,19 +11,46 @@ export class Selection {
   ids() { return [...this.set].sort(); }
 }
 
+// Short links:  #v=2&t=<bitmap of owned nodes>&b=<6 stat chars>&e=<2 chars per item>&c=<tree check>&n=name
+// t is one bit per node in tree order (188 nodes = 32 characters). c fingerprints the node list so a link made for an
+// older tree is detected instead of silently decoding to the wrong skills. Old long links (#s=id1,id2 ...) still load.
+let ORDER = [], CHECK = "";
+export function setCodec(order) {
+  ORDER = order;
+  let h = 5381; for (const ch of order.join("|")) h = ((h << 5) + h + ch.charCodeAt(0)) >>> 0;
+  CHECK = h.toString(36).slice(-4);
+}
+const b64 = (bytes) => btoa(String.fromCharCode(...bytes)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+const unb64 = (t) => Uint8Array.from(atob(t.replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0));
+
 export function writeUrl(sel) {
   const p = new URLSearchParams();
-  if (sel.set.size) p.set("s", sel.ids().join(","));
+  if (sel.set.size || sel.base.some(Boolean) || Object.keys(sel.equip).length) p.set("v", "2");
+  if (sel.set.size) {
+    const bytes = new Uint8Array(Math.ceil(ORDER.length / 8));
+    ORDER.forEach((id, i) => { if (sel.set.has(id)) bytes[i >> 3] |= 1 << (i & 7); });
+    p.set("t", b64(bytes)); p.set("c", CHECK);
+  }
+  if (sel.base.some(Boolean)) p.set("b", sel.base.map((x) => x.toString(36)).join(""));
+  const eq = Object.values(sel.equip).filter(Boolean); if (eq.length) p.set("e", eq.map((id) => id.toString(36).padStart(2, "0")).join(""));
   if (sel.name) p.set("n", sel.name);
-  if (sel.base.some(Boolean)) p.set("b", sel.base.join(","));
-  const eq = Object.values(sel.equip).filter(Boolean); if (eq.length) p.set("e", eq.join(","));
   const hash = p.toString();
   history.replaceState(null, "", location.pathname + location.search + (hash ? "#" + hash : ""));
 }
 export function readUrl() {
-  const p = new URLSearchParams(location.hash.slice(1));
-  const b = (p.get("b") || "").split(",").map((x) => Math.max(0, Math.min(20, parseInt(x, 10) || 0)));
-  return { ids: (p.get("s") || "").split(",").filter(Boolean), name: p.get("n") || "", base: Array.from({ length: 6 }, (_, i) => b[i] || 0), equip: (p.get("e") || "").split(",").map(Number).filter(Boolean) };
+  const p = new URLSearchParams(location.hash.slice(1)), clamp = (x) => Math.max(0, Math.min(20, x || 0));
+  if (p.get("v") === "2") {
+    let ids = [], stale = false;
+    if (p.get("t")) {
+      if (p.get("c") !== CHECK) stale = true;
+      else { const bytes = unb64(p.get("t")); ids = ORDER.filter((_, i) => bytes[i >> 3] & (1 << (i & 7))); }
+    }
+    const bs = p.get("b") || "", es = p.get("e") || "";
+    return { ids, stale, name: p.get("n") || "", base: Array.from({ length: 6 }, (_, i) => clamp(parseInt(bs[i] || "0", 36))),
+      equip: (es.match(/.{2}/g) || []).map((x) => parseInt(x, 36)).filter(Boolean) };
+  }
+  const b = (p.get("b") || "").split(",").map((x) => clamp(parseInt(x, 10)));   // old long format
+  return { ids: (p.get("s") || "").split(",").filter(Boolean), stale: false, name: p.get("n") || "", base: Array.from({ length: 6 }, (_, i) => b[i] || 0), equip: (p.get("e") || "").split(",").map(Number).filter(Boolean) };
 }
 export const shareUrl = (sel) => { writeUrl(sel); return location.href; };
 
