@@ -36,7 +36,7 @@ Without this, Publish saves to the visitor's own browser.
 **Admin delete (optional):** type `cosm1c` anywhere on the page (not inside a text box) to toggle admin mode; Community then shows a Delete button on each build. The typed code is the real password of a Firebase user, so it is not in the source and Firebase itself enforces who can delete:
 1. Firebase console -> **Authentication -> Get started -> Sign-in method -> Email/Password -> Enable**.
 2. Authentication -> **Users -> Add user**: email `admin@mythskillbuilder.app` (must match `ADMIN_EMAIL` in `js/config.js`), password `cosm1c` (use something longer and change `ADMIN_CODE` in `main.js` if you want better security).
-3. Firestore -> Rules: change the last rule line to  `allow update: if false;  allow delete: if request.auth != null && request.auth.token.email == 'admin@mythskillbuilder.app';`  and Publish. (`functions/api/builds.js` is an alternative that needs Cloudflare Pages + KV; you can delete it.)
+3. Firestore -> Rules: change the last rule line to  `allow update: if false;  allow delete: if request.auth != null && request.auth.token.email == 'admin@mythskillbuilder.app';`  and Publish.
 
 ## Where the data comes from (patch v0.21.0)
 - **Names, effects, icons:** https://mythfall.wiki.gg/wiki/Skill_Tree (all 133 node types, 16x16 icons in `public/assets/icons/`). Transcribed in `tools/catalog.py`.
