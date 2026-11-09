@@ -230,3 +230,7 @@ dialog#changelog { width: min(620px, 92vw); max-height: 82vh; background: #10122
 #egg { position: absolute; inset: 0; z-index: 20; display: grid; place-items: center; background: rgba(0,0,0,.35); -webkit-backdrop-filter: grayscale(1) brightness(.45); backdrop-filter: grayscale(1) brightness(.45); }
 #egg[hidden] { display: none; }
 #egg video { width: min(380px, 70vw); max-height: 60vh; background: #000; border: 3px solid #14151f; }
+
+.c-clearrow { display: flex; justify-content: center; margin: 10px 0 4px; }
+.c-clearrow .c-btn.wide { height: 32px; font-size: 14px; -webkit-text-stroke: 0; }
+.c-btn.wide:disabled { background: #7d8a73; border-bottom-color: #55604d; color: #c7ccc2; }

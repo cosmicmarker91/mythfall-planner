@@ -23,6 +23,8 @@ export function initCharacter(sel, { $, graph, data, openPicker }) {
     eq.append(b); slotEls.push({ key: s[0], img });
   }
 
+  $("clearGear").onclick = () => sel.setEquip({});
+
   // damage-taken pills with the hover explanation
   const pills = HITS.map((hit, t) => {
     const p = mk("div", "c-pill"); $("pills").append(p);
@@ -48,6 +50,7 @@ export function initCharacter(sel, { $, graph, data, openPicker }) {
     const gear = Object.values(sel.equip).map((id) => data.byId.get(id)).filter(Boolean);
     const stats = current = computeStats([...sel.set].map((id) => graph.nodes.get(id)).filter(Boolean), sel.base, gear);
     for (const { key, img } of slotEls) { const it = data.byId.get(sel.equip[key]); img.src = it ? iconOf(it) : `assets/slots/${key}.png`; img.parentElement.classList.toggle("filled", !!it); }
+    $("clearGear").disabled = !gear.length;
     BASE.forEach((n, i) => {
       const r = rows[i], b = stats.base[n].bonus;
       r.val.textContent = `${sel.base[i]}/${CAP}`; r.minus.disabled = sel.base[i] <= 0; r.plus.disabled = sel.base[i] >= CAP || total >= LIMIT;
