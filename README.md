@@ -23,9 +23,11 @@ Uses Firebase Firestore straight from the browser (free Spark plan, no card).
 rules_version = '2';
 service cloud.firestore { match /databases/{db}/documents { match /builds/{id} {
   allow read: if true;
-  allow create: if request.resource.data.keys().hasOnly(['name','skills','createdAt'])
+  allow create: if request.resource.data.keys().hasOnly(['name','skills','createdAt','base','equip'])
     && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 40
-    && request.resource.data.skills is list && request.resource.data.skills.size() > 0 && request.resource.data.skills.size() <= 500;
+    && request.resource.data.skills is list && request.resource.data.skills.size() > 0 && request.resource.data.skills.size() <= 500
+    && (!('base' in request.resource.data) || (request.resource.data.base is string && request.resource.data.base.size() <= 30))
+    && (!('equip' in request.resource.data) || (request.resource.data.equip is list && request.resource.data.equip.size() <= 12));
   allow update, delete: if false;
 } } }
 ```

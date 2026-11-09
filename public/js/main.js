@@ -115,7 +115,7 @@ $("share").onclick = async () => {
 $("publish").onclick = async () => {
   if (!sel.set.size) return toast("Purchase some skills first");
   if (!sel.name) { $("buildName").focus(); return toast("Give your build a name first"); }
-  const { local } = await community.publish(sel.name, sel.ids());
+  const { local } = await community.publish(sel.name, sel.ids(), { base: sel.base, equip: Object.values(sel.equip).filter(Boolean) });
   toast(local ? "Saved locally (server not running)" : "Published to community");
 };
 
@@ -129,10 +129,14 @@ const openCommunity = async () => {
     const li = document.createElement("li");
     const meta = document.createElement("div"); meta.className = "meta";
     const nm = document.createElement("div"); nm.className = "nm"; nm.textContent = b.name;
-    const sub = document.createElement("div"); sub.className = "sub"; sub.textContent = `${b.skills.length} skills · ${new Date(b.createdAt).toLocaleDateString()}`;
+    const sub = document.createElement("div"); sub.className = "sub"; sub.textContent = `${b.skills.length} skills${b.equip && b.equip.length ? " · gear" : ""} · ${new Date(b.createdAt).toLocaleDateString()}`;
     meta.append(nm, sub);
     const load = document.createElement("button"); load.className = "mf-btn sm"; load.textContent = "Load";
-    load.onclick = () => { sel.replace(b.skills, b.name); dlg.close(); };
+    load.onclick = () => {
+      sel.base = (b.base && b.base.length === 6 ? b.base : [0, 0, 0, 0, 0, 0]).map((x) => Math.max(0, Math.min(20, x | 0)));
+      sel.equip = {}; for (const id of b.equip || []) { const it = data.byId.get(id); if (it) sel.equip[SLOT_KEYS[it.type]] = id; }
+      sel.replace(b.skills, b.name); dlg.close();
+    };
     li.append(meta, load);
     if (community.isAdmin()) {
       const del = document.createElement("button"); del.className = "mf-btn sm del"; del.textContent = "Delete";

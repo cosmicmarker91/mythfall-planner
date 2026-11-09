@@ -32,7 +32,9 @@ http.createServer(async (req, res) => {
         const name = String(b.name || "").trim().slice(0, 40);
         const skills = Array.isArray(b.skills) ? b.skills.filter((s) => typeof s === "string" && s.length <= 64).slice(0, 500) : null;
         if (!name || !skills || !skills.length) return send(res, 400, { error: "name and skills required" });
-        const build = { id: crypto.randomBytes(5).toString("hex"), name, skills, createdAt: new Date().toISOString() };
+        const base = Array.isArray(b.base) && b.base.length === 6 ? b.base.map((x) => Math.max(0, Math.min(20, Math.trunc(+x) || 0))) : null;
+        const equip = Array.isArray(b.equip) ? b.equip.map(Number).filter(Number.isInteger).slice(0, 12) : null;
+        const build = { id: crypto.randomBytes(5).toString("hex"), name, skills, base, equip, createdAt: new Date().toISOString() };
         const all = await readBuilds(); all.push(build);
         await fs.mkdir(path.dirname(store), { recursive: true });
         await fs.writeFile(store, JSON.stringify(all.slice(-1000), null, 1));

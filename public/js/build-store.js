@@ -68,7 +68,8 @@ const LS = "mythfall.community.v1";
 const lsRead = () => { try { return JSON.parse(localStorage.getItem(LS) || "[]"); } catch { return []; } };
 const fs = () => FIREBASE.projectId && FIREBASE.apiKey;
 const FS = () => `https://firestore.googleapis.com/v1/projects/${FIREBASE.projectId}/databases/(default)/documents`;
-const fromDoc = (d) => ({ id: d.name.split("/").pop(), name: d.fields.name.stringValue, skills: (d.fields.skills.arrayValue.values || []).map((v) => v.stringValue), createdAt: d.fields.createdAt.timestampValue });
+const fromDoc = (d) => ({ id: d.name.split("/").pop(), name: d.fields.name.stringValue, skills: (d.fields.skills.arrayValue.values || []).map((v) => v.stringValue), createdAt: d.fields.createdAt.timestampValue,
+  base: d.fields.base ? d.fields.base.stringValue.split(",").map(Number) : null, equip: d.fields.equip ? (d.fields.equip.arrayValue.values || []).map((v) => +v.integerValue) : null });
 let adminToken = null, adminPass = null, adminExp = 0;   // memory only, never stored
 export const community = {
   // Typed admin code = the real password of a Firebase user, so the code is not in the source and the database enforces it.
@@ -106,21 +107,26 @@ export const community = {
       return { builds: await r.json(), local: false };
     } catch { return { builds: lsRead().slice().reverse(), local: true }; }
   },
-  async publish(name, skills) {
+  async publish(name, skills, extra = {}) {   // extra = { base:[6 numbers], equip:[item ids] }
     if (fs()) {
       try {
-        const body = { fields: { name: { stringValue: name }, skills: { arrayValue: { values: skills.map((s) => ({ stringValue: s })) } }, createdAt: { timestampValue: new Date().toISOString() } } };
-        const r = await fetch(`${FS()}/builds?key=${FIREBASE.apiKey}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        const fields = { name: { stringValue: name }, skills: { arrayValue: { values: skills.map((s) => ({ stringValue: s })) } }, createdAt: { timestampValue: new Date().toISOString() } };
+        const full = { ...fields };
+        if (extra.base && extra.base.some(Boolean)) full.base = { stringValue: extra.base.join(",") };
+        if (extra.equip && extra.equip.length) full.equip = { arrayValue: { values: extra.equip.map((i) => ({ integerValue: String(i) })) } };
+        const send = (f) => fetch(`${FS()}/builds?key=${FIREBASE.apiKey}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ fields: f }) });
+        let r = await send(full);
+        if (!r.ok && Object.keys(full).length > 3) r = await send(fields);   // rules not updated yet: still publish the skills
         if (!r.ok) throw 0;
         return { build: fromDoc(await r.json()), local: false };
       } catch { /* fall through */ }
     }
     try {
-      const r = await fetch("api/builds", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, skills }) });
+      const r = await fetch("api/builds", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, skills, ...extra }) });
       if (!r.ok) throw 0;
       return { build: await r.json(), local: false };
     } catch {
-      const build = { id: Math.random().toString(36).slice(2, 10), name, skills, createdAt: new Date().toISOString() };
+      const build = { id: Math.random().toString(36).slice(2, 10), name, skills, ...extra, createdAt: new Date().toISOString() };
       try { localStorage.setItem(LS, JSON.stringify([...lsRead(), build].slice(-200))); } catch {}
       return { build, local: true };
     }
