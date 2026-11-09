@@ -62,6 +62,7 @@
     <button id="share" class="mf-btn sm">Copy Link</button>
     <button id="publish" class="mf-btn sm">Publish</button>
     <button id="communityBtn" class="mf-btn sm">Community</button>
+    <button id="changelogBtn" class="mf-btn sm dim">Changelog<i id="clDot" hidden></i></button>
     <button id="fit" class="mf-btn sm dim" title="Re-center the view">Fit</button>
   </div>
 
@@ -86,6 +87,11 @@
     <div id="communityNote"></div>
     <ul id="communityList"></ul>
   </dialog>
+  <dialog id="changelog">
+    <div class="dlg-head"><h2>Changelog</h2><button id="closeChangelog" class="mf-btn sm dim">Close</button></div>
+    <div id="changelogList"></div>
+  </dialog>
+  <div id="egg" hidden><video id="eggVideo" src="assets/dodge.mp4" preload="none" playsinline></video></div>
   <div id="toast"></div>
 </div>
 <script type="module" src="js/main.js"></script>

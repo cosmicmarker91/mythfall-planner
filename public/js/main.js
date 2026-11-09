@@ -1,5 +1,5 @@
 import { loadTree } from "./tree-source.js";
-import { Graph } from "./graph.js";
+import { Graph, MAX_POINTS } from "./graph.js";
 import { buildWorld } from "./world.js";
 import { Viewport } from "./viewport.js";
 import { Selection, writeUrl, readUrl, shareUrl, community, setCodec, restoreLast } from "./build-store.js";
@@ -21,6 +21,7 @@ const data = await loadItems();
 const graph = new Graph(tree);
 setCodec(tree.nodes.map((n) => n.id));
 const sel = new Selection(new Set(tree.nodes.map((n) => n.id)));   // sel.set = the nodes you have purchased
+sel.constrain = (set) => graph.normalize(set);   // one starting node, connected, max 28 points: also applies to links and community builds
 let pinned = null, hover = null;   // pinned = the node you clicked (shows a tick; click it again to buy)
 
 const TYPE = { start: "Starting Node", keystone: "Keystone", notable: "Notable", travel: "Travel Node" };
@@ -28,14 +29,16 @@ const target = () => hover || pinned || "nomad";
 
 const world = buildWorld($("world"), tree, { onHover: (id) => { hover = id; render(); } });
 
-function renderPanel(id, plan) {
+function renderPanel(id, plan) {   // (plan may be reassigned below)
   const n = graph.nodes.get(id), owned = sel.set.has(id);
   const stats = computeStats([...sel.set].map((i) => graph.nodes.get(i)).filter(Boolean), sel.base, Object.values(sel.equip).map((i) => data.byId.get(i)).filter(Boolean));
   $("pIcon").src = n.icon; $("pIcon").parentElement.className = "p-icon " + n.kind;
   $("pName").textContent = n.name; $("pType").textContent = TYPE[n.kind];
   $("pEffects").replaceChildren(...n.effect.map((t) => { const d = document.createElement("div"); d.textContent = liveLine(t, stats); return d; }));
   const btn = $("pBtn"); btn.classList.toggle("refund", owned); btn.disabled = false;
+  const otherStart = n.kind === "start" && !owned && graph.ownedStart(sel.set);
   if (owned) { $("pCost").textContent = "Purchased"; btn.textContent = "Refund"; }
+  else if (otherStart) { $("pCost").textContent = "You can only pick one starting node"; btn.textContent = "Cannot Reach"; btn.disabled = true; plan = null; }
   else if (!plan) { $("pCost").textContent = "No path from a starting node"; btn.textContent = "Cannot Reach"; btn.disabled = true; }
   else if (plan.cost === 1) { $("pCost").textContent = "Skillpoint Cost: 1"; btn.textContent = "Purchase"; }
   else { $("pCost").textContent = `Path Cost: ${plan.cost} skillpoints`; btn.textContent = "Cannot Reach"; btn.disabled = true; } // like the game: only a node next to one you own (or a starting node) can be bought
@@ -56,7 +59,8 @@ sel.onChange(() => { render(); character.render(); writeUrl(sel); });
 
 function purchase(id, wholePath = false) {
   const plan = graph.plan(id, sel.set);
-  if (!plan) return toast("Cannot reach that node: paths can't run through keystones");
+  if (!plan) return toast(graph.nodes.get(id).kind === "start" && graph.ownedStart(sel.set) ? "You can only pick one starting node" : "Cannot reach that node: paths can't run through keystones");
+  if (plan.cost > MAX_POINTS - sel.set.size) return toast(`The maximum skill points is ${MAX_POINTS}`);
   if (plan.cost > 1 && !wholePath) return toast(`Cannot reach yet. It needs ${plan.cost} skillpoints along the path`);
   sel.replace([...sel.set, ...plan.path]);
 }
@@ -146,14 +150,41 @@ $("communityBtn").onclick = openCommunity;
 $("closeCommunity").onclick = () => dlg.close();
 dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
 
-// ---- admin mode: type the admin code anywhere (not inside a text box) ----
-const ADMIN_CODE = "cosm1c"; let typed = "";
+// ---- typed codes (anywhere except inside a text box): admin mode, and a secret ----
+const ADMIN_CODE = "cosm1c", SECRET = "dodge"; let typed = "";
+const egg = $("egg"), eggVideo = $("eggVideo");
+const endEgg = () => { eggVideo.pause(); egg.hidden = true; };
+eggVideo.addEventListener("ended", endEgg);
+egg.addEventListener("pointerdown", endEgg);                      // click to skip
 addEventListener("keydown", async (e) => {
+  if (e.key === "Escape" && !egg.hidden) return endEgg();
   if (e.target.closest && e.target.closest("input, textarea") || e.key.length !== 1) return;
-  typed = (typed + e.key).slice(-ADMIN_CODE.length);
-  if (typed !== ADMIN_CODE) return;
+  typed = (typed + e.key.toLowerCase()).slice(-12);
+  if (typed.endsWith(SECRET)) { typed = ""; egg.hidden = false; eggVideo.currentTime = 0; eggVideo.play().catch(endEgg); return; }
+  if (!typed.endsWith(ADMIN_CODE)) return;
   typed = "";
   if (community.isAdmin()) { community.adminOff(); document.body.classList.remove("admin"); toast("Admin mode off"); return; }
   if (await community.adminLogin(ADMIN_CODE)) { document.body.classList.add("admin"); toast("Admin mode on: open Community to delete builds"); }
   else toast("Admin sign-in failed (admin user not set up in Firebase yet)");
 });
+
+// ---- changelog (data/changelog.json, newest first; a dot shows when there is something you have not seen) ----
+const clDlg = $("changelog"), SEEN = "mythfall.changelogSeen";
+let changelog = [];
+try { changelog = await (await fetch("data/changelog.json", { cache: "no-store" })).json(); } catch {}
+const seen = () => { try { return localStorage.getItem(SEEN) || ""; } catch { return ""; } };
+$("clDot").hidden = !changelog.length || changelog[0].date <= seen();
+$("changelogBtn").onclick = () => {
+  const box = $("changelogList"); box.replaceChildren();
+  for (const e of changelog) {
+    const sec = document.createElement("section"), h = document.createElement("h3"), ul = document.createElement("ul");
+    h.textContent = `${e.title}`; const d = document.createElement("span"); d.textContent = new Date(e.date + "T12:00:00").toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }); h.prepend(d);
+    for (const t of e.items) { const li = document.createElement("li"); li.textContent = t; ul.append(li); }
+    sec.append(h, ul); box.append(sec);
+  }
+  if (!changelog.length) box.textContent = "No updates yet.";
+  try { if (changelog[0]) localStorage.setItem(SEEN, changelog[0].date); } catch {}
+  $("clDot").hidden = true; clDlg.showModal();
+};
+$("closeChangelog").onclick = () => clDlg.close();
+clDlg.addEventListener("click", (e) => { if (e.target === clDlg) clDlg.close(); });

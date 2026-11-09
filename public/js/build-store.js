@@ -1,10 +1,10 @@
 // Selected-skill state + URL sharing + community storage.
 export class Selection {
-  constructor(validIds) { this.valid = validIds; this.set = new Set(); this.name = ""; this.base = [0, 0, 0, 0, 0, 0]; this.equip = {}; this.listeners = []; }
+  constructor(validIds) { this.valid = validIds; this.set = new Set(); this.name = ""; this.base = [0, 0, 0, 0, 0, 0]; this.equip = {}; this.listeners = []; this.constrain = (s) => s; }
   onChange(fn) { this.listeners.push(fn); }
   #emit() { this.listeners.forEach((f) => f(this)); }
   toggle(id) { this.set.has(id) ? this.set.delete(id) : this.set.add(id); this.#emit(); }
-  replace(ids, name = this.name) { this.set = new Set(ids.filter((i) => this.valid.has(i))); this.name = name; this.#emit(); }
+  replace(ids, name = this.name) { this.set = this.constrain(new Set(ids.filter((i) => this.valid.has(i)))); this.name = name; this.#emit(); }
   clear() { this.set = new Set(); this.#emit(); }
   setBase(base) { this.base = base; this.#emit(); }
   setEquip(equip) { this.equip = equip; this.#emit(); }

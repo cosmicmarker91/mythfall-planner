@@ -64,3 +64,6 @@ The game data has no positions or links, so a *new* node still needs its grid po
 - `public/data/tree.json` – generated tree data
 - `source/` + `tools/` – reference screenshots, node layout, wiki catalogue and the generator
 - `server.mjs` – local dev server only (not deployed)
+
+## Changelog
+Shown in the site (Changelog button) from `public/data/changelog.json`, newest entry first. Add an entry for every user-visible change.

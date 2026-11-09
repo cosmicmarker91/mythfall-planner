@@ -118,7 +118,7 @@ export function buildWorld(root, tree, { onHover } = {}) {
   let last = { hover: null, cost: 0 };
   return {
     // state: { owned:Set, avail:Set, plan:{cost,path}|null, hover:id|null, pinned:id|null }
-    render({ owned, avail, plan, hover, pinned }) {
+    render({ owned, avail, plan, hover, pinned, locked = new Set() }) {
       const onPath = new Set(plan ? plan.path : []), pathEdges = new Set();
       if (plan) for (let i = 1; i < plan.path.length; i++) pathEdges.add(Graph.key(plan.path[i - 1], plan.path[i]));
       for (const [id, r] of byId) {
@@ -128,6 +128,7 @@ export function buildWorld(root, tree, { onHover } = {}) {
         c.toggle("path", onPath.has(id));
         c.toggle("hover", hover === id);
         c.toggle("pinned", pinned === id);
+        c.toggle("locked", locked.has(id));
         c.toggle("can", pinned === id && !!plan && !owned.has(id));
       }
       for (const e of edges) {

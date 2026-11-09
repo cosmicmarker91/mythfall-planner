@@ -1,0 +1,24 @@
+[
+  { "date": "2026-11-09", "title": "Rules and changelog", "items": [
+    "You can now only pick one starting node. Once you buy one, the other six grey out.",
+    "Maximum of 28 skillpoints. If you try to buy past it, you get a message saying the maximum is 28, and links or builds that go over are cut down to fit.",
+    "Added this changelog."
+  ] },
+  { "date": "2026-11-08", "title": "Character, equipment and sharing", "items": [
+    "New Character screen (helmet button): base stats with - / + buttons (max 20 each, 100 total), bonus stats from your skills and gear, and the damage-taken numbers.",
+    "Skill descriptions that depend on your stats (like Body Slam, Shadow Strength, Defensive Conversion) now show the real number.",
+    "Equipment: click a slot to pick items. 412 items from the game data with in-game style tooltips, rarity colours and live scaling from your total stats. Items are listed by rarity, then tier.",
+    "Item data can be refreshed after a patch with one saved file and one command.",
+    "Much shorter share links. Old links still work.",
+    "The site remembers your last build when you open it again.",
+    "Admin mode for removing community builds."
+  ] },
+  { "date": "2026-11-07", "title": "Skill tree rebuilt for the new game version", "items": [
+    "Whole tree redrawn from the game's v0.21.0 data: 188 nodes with names, effects and icons from the wiki.",
+    "Hover a node to see its name and the cheapest path from a starting node, with the skillpoint cost.",
+    "Click a node to select it (a tick appears), click again or double-click to buy.",
+    "Keystones sever connections: paths can end on one but never run through it.",
+    "Info panel in the bottom right like the game, and Pixel-style frames for owned and highlighted nodes.",
+    "Community builds: publish and load builds from other players."
+  ] }
+]
